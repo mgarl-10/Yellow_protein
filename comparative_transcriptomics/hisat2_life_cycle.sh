@@ -3,18 +3,18 @@
 #$ -N hisat2_LC
 #$ -cwd
 
-#/ebio/ag-salem/projects/CassidinaeGenomics/code/hisat2-2.2.0/hisat2-build-l /ebio/ag-salem/projects/BeetleGenomes_Annotation/data/C_alternans/C_alternans_funannotate/C_alternans_genome_cleaned_sorted.fa C_alternans
+HISAT2=/ebio/ag-salem/projects/CassidinaeGenomics/code/hisat2-2.2.0/hisat2
+READS=/ebio/ag-salem/projects/BeetleGenomes/data/RNAseq/Stammera_RNAseq/Trimmed_reads
+INDEX=C_alternans
 
-/ebio/ag-salem/projects/CassidinaeGenomics/code/hisat2-2.2.0/hisat2 -x C_alternans -1 /ebio/ag-salem/projects/BeetleGenomes/data/RNAseq/Stammera_RNAseq/Trimmed_reads/S1_trimmed_1.fastq.gz -2 /ebio/ag-salem/projects/BeetleGenomes/data/RNAseq/Stammera_RNAseq/Trimmed_reads/S1_trimmed_2.fastq.gz -S Caplet_1.sam --rna-strandness RF -p 16
-/ebio/ag-salem/projects/CassidinaeGenomics/code/hisat2-2.2.0/hisat2 -x C_alternans -1 /ebio/ag-salem/projects/BeetleGenomes/data/RNAseq/Stammera_RNAseq/Trimmed_reads/S2_trimmed_1.fastq.gz -2 /ebio/ag-salem/projects/BeetleGenomes/data/RNAseq/Stammera_RNAseq/Trimmed_reads/S2_trimmed_2.fastq.gz -S Caplet_2.sam --rna-strandness RF -p 16
-/ebio/ag-salem/projects/CassidinaeGenomics/code/hisat2-2.2.0/hisat2 -x C_alternans -1 /ebio/ag-salem/projects/BeetleGenomes/data/RNAseq/Stammera_RNAseq/Trimmed_reads/S3_trimmed_1.fastq.gz -2 /ebio/ag-salem/projects/BeetleGenomes/data/RNAseq/Stammera_RNAseq/Trimmed_reads/S3_trimmed_2.fastq.gz -S Caplet_3.sam --rna-strandness RF -p 16
-/ebio/ag-salem/projects/CassidinaeGenomics/code/hisat2-2.2.0/hisat2 -x C_alternans -1 /ebio/ag-salem/projects/BeetleGenomes/data/RNAseq/Stammera_RNAseq/Trimmed_reads/S4_trimmed_1.fastq.gz -2 /ebio/ag-salem/projects/BeetleGenomes/data/RNAseq/Stammera_RNAseq/Trimmed_reads/S4_trimmed_2.fastq.gz -S Larvae_1.sam --rna-strandness RF -p 16
-/ebio/ag-salem/projects/CassidinaeGenomics/code/hisat2-2.2.0/hisat2 -x C_alternans -1 /ebio/ag-salem/projects/BeetleGenomes/data/RNAseq/Stammera_RNAseq/Trimmed_reads/S5_trimmed_1.fastq.gz -2 /ebio/ag-salem/projects/BeetleGenomes/data/RNAseq/Stammera_RNAseq/Trimmed_reads/S5_trimmed_2.fastq.gz -S Larvae_2.sam --rna-strandness RF -p 16
-/ebio/ag-salem/projects/CassidinaeGenomics/code/hisat2-2.2.0/hisat2 -x C_alternans -1 /ebio/ag-salem/projects/BeetleGenomes/data/RNAseq/Stammera_RNAseq/Trimmed_reads/S6_trimmed_1.fastq.gz -2 /ebio/ag-salem/projects/BeetleGenomes/data/RNAseq/Stammera_RNAseq/Trimmed_reads/S6_trimmed_2.fastq.gz -S Larvae_3.sam --rna-strandness RF -p 16
-/ebio/ag-salem/projects/CassidinaeGenomics/code/hisat2-2.2.0/hisat2 -x C_alternans -1 /ebio/ag-salem/projects/BeetleGenomes/data/RNAseq/Stammera_RNAseq/Trimmed_reads/S7_trimmed_1.fastq.gz -2 /ebio/ag-salem/projects/BeetleGenomes/data/RNAseq/Stammera_RNAseq/Trimmed_reads/S7_trimmed_2.fastq.gz -S Adult_FG_1.sam --rna-strandness RF -p 16
-/ebio/ag-salem/projects/CassidinaeGenomics/code/hisat2-2.2.0/hisat2 -x C_alternans -1 /ebio/ag-salem/projects/BeetleGenomes/data/RNAseq/Stammera_RNAseq/Trimmed_reads/S8_trimmed_1.fastq.gz -2 /ebio/ag-salem/projects/BeetleGenomes/data/RNAseq/Stammera_RNAseq/Trimmed_reads/S8_trimmed_2.fastq.gz -S Adult_FG_2.sam --rna-strandness RF -p 16
-/ebio/ag-salem/projects/CassidinaeGenomics/code/hisat2-2.2.0/hisat2 -x C_alternans -1 /ebio/ag-salem/projects/BeetleGenomes/data/RNAseq/Stammera_RNAseq/Trimmed_reads/S9_trimmed_1.fastq.gz -2 /ebio/ag-salem/projects/BeetleGenomes/data/RNAseq/Stammera_RNAseq/Trimmed_reads/S9_trimmed_2.fastq.gz -S Adult_FG_3.sam --rna-strandness RF -p 16
-/ebio/ag-salem/projects/CassidinaeGenomics/code/hisat2-2.2.0/hisat2 -x C_alternans -1 /ebio/ag-salem/projects/BeetleGenomes/data/RNAseq/Stammera_RNAseq/Trimmed_reads/S10_trimmed_1.fastq.gz -2 /ebio/ag-salem/projects/BeetleGenomes/data/RNAseq/Stammera_RNAseq/Trimmed_reads/S10_trimmed_2.fastq.gz -S Adult_OV_1.sam --rna-strandness RF -p 16
-/ebio/ag-salem/projects/CassidinaeGenomics/code/hisat2-2.2.0/hisat2 -x C_alternans -1 /ebio/ag-salem/projects/BeetleGenomes/data/RNAseq/Stammera_RNAseq/Trimmed_reads/S11_trimmed_1.fastq.gz -2 /ebio/ag-salem/projects/BeetleGenomes/data/RNAseq/Stammera_RNAseq/Trimmed_reads/S11_trimmed_2.fastq.gz -S Adult_OV_2.sam --rna-strandness RF -p 16
-/ebio/ag-salem/projects/CassidinaeGenomics/code/hisat2-2.2.0/hisat2 -x C_alternans -1 /ebio/ag-salem/projects/BeetleGenomes/data/RNAseq/Stammera_RNAseq/Trimmed_reads/S12_trimmed_1.fastq.gz -2 /ebio/ag-salem/projects/BeetleGenomes/data/RNAseq/Stammera_RNAseq/Trimmed_reads/S12_trimmed_2.fastq.gz -S Adult_OV_3.sam --rna-strandness RF -p 16
+for i in {1..12}; do
+    echo "Running sample S${i}"
 
+    $HISAT2 \
+      -x $INDEX \
+      -1 ${READS}/S${i}_trimmed_1.fastq.gz \
+      -2 ${READS}/S${i}_trimmed_2.fastq.gz \
+      -S S${i}.sam \
+      --rna-strandness RF \
+      -p 16
+done
