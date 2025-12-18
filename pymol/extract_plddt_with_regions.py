@@ -38,7 +38,7 @@ def extract_plddt(file_path, region_ranges=None):
 
     return result
 
-# === CONFIGURATION ===
+#CONFIGURATION
 
 # Map protein name → file path
 model_files = {
@@ -51,7 +51,7 @@ model_files = {
     "C.gressoria": "model_7.cif"
 }
 
-# Per-protein exon definitions (adjust residue numbers!)
+# Per-protein exon definitions 
 region_map = {
     "A.sparsa": {"exon_1": (1, 461), "exon_2_3": (462, 869)},
     "A.quinquefasciata": {"exon_1": (1, 533), "exon_2_3": (534, 876)},
@@ -62,7 +62,7 @@ region_map = {
     "C.gressoria": {"exon_1": (1, 530), "exon_2_3": (531, 870)}
 }
 
-# === RUN ANALYSIS ===
+#ANALYSIS
 
 results = []
 for name, path in model_files.items():
