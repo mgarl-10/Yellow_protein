@@ -3,9 +3,7 @@
 #$ -N featurec
 #$ -cwd
 
-FEATURECOUNTS=/ebio/ag-salem/projects/CassidinaeGenomics/code/subread-2.0.3-Linux-x86_64/bin/featureCounts
-
-$FEATURECOUNTS \
+featureCounts \
   -T 16 \
   -s 2 \
   -t CDS,rRNA,misc_RNA,tRNA \
