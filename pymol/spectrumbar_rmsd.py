@@ -16,14 +16,12 @@ def spectrumbar_rmsd(name="rmsd_bar", start="0,0,0", length=15.0, radius=0.3,
         rmsd_min: Minimum RMSD value (left)
         rmsd_max: Maximum RMSD value (right)
     """
-    # Safely parse numeric parameters
     length = float(length)
     radius = float(radius)
     steps = int(steps)
     rmsd_min = float(rmsd_min)
     rmsd_max = float(rmsd_max)
 
-    # Parse position string
     if isinstance(start, str):
         start = start.strip("\"'() ")
         x0, y0, z0 = map(float, start.split(","))
@@ -59,16 +57,16 @@ def spectrumbar_rmsd(name="rmsd_bar", start="0,0,0", length=15.0, radius=0.3,
     cmd.delete(name)
     cmd.load_cgo(bar, name)
 
-    # Add labels below the bar
+
     for j in range(steps + 1):
         frac = j / steps
         xpos = x0 + frac * length
         value = rmsd_min + frac * (rmsd_max - rmsd_min)
         cmd.pseudoatom(object=f"{name}_label_{j}", pos=[xpos, y0 - 1.0, z0], label=f"{value:.1f} Å")
 
-    # Style labels
+
     cmd.set("label_size", 14)
     cmd.set("label_font_id", 7)
 
-# Register with PyMOL
+
 cmd.extend("spectrumbar_rmsd", spectrumbar_rmsd)
