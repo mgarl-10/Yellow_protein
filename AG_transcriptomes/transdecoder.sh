@@ -5,27 +5,27 @@
 
 source ~/.bashrc
 
-for SPECIES_DIR in */ ; do
-  FASTA="${SPECIES_DIR}/Trinity.fasta"
-  [[ -f "$FASTA" ]] || continue
+for species_dir in */ ; do
+  fasta="${species_dir}/Trinity.fasta"
+  [[ -f "$fasta" ]] || continue
 
-  TAG="${SPECIES_DIR%/}"   
+  tag="${species_dir%/}"   
+  
+  echo "Processing ${tag}"
 
-  echo "Processing ${TAG}"
-
-  cd "$SPECIES_DIR" || exit 1
+  cd "$species_dir" || exit 1
 
   TransDecoder.LongOrfs -t Trinity.fasta -S
 
   hmmscan \
     --cpu 16 \
-    --domtblout "${TAG}_pfam.domtblout" \
+    --domtblout "${tag}_pfam.domtblout" \
     Pfam-A.hmm \
-    "${TAG}.transdecoder_dir/longest_orfs.pep"
+    "${tag}.transdecoder_dir/longest_orfs.pep"
 
   TransDecoder.Predict \
     -t Trinity.fasta \
-    --retain_pfam_hits "${TAG}_pfam.domtblout" \
+    --retain_pfam_hits "${tag}_pfam.domtblout" \
     --cpu 16
 
   cd ..
