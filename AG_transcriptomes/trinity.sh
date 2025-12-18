@@ -3,6 +3,7 @@
 #$ -N trinity_Asp
 #$ -cwd
 
+source ~/.bashrc 
 
 forward=(*trimmed_1.fastq.gz)
 reverse=(*trimmed_2.fastq.gz)
