@@ -1,20 +1,22 @@
 #!/bin/bash
 #$ -S /bin/bash
-#$ -N hisat2_LC
+#$ -N hisat2
 #$ -cwd
 
-HISAT2=/ebio/ag-salem/projects/CassidinaeGenomics/code/hisat2-2.2.0/hisat2
-READS=/ebio/ag-salem/projects/BeetleGenomes/data/RNAseq/Stammera_RNAseq/Trimmed_reads
-INDEX=C_alternans
+reads=/ebio/ag-salem/projects/BeetleGenomes/data/RNAseq/Stammera_RNAseq/Trimmed_reads
+index=C_alternans
 
-for i in {1..12}; do
-    echo "Running sample S${i}"
+for R1 in ${reads}/*_trimmed_1.fastq.gz; do
+    sample=$(basename "$R1" _trimmed_1.fastq.gz)
+    R2="${reads}/${sample}_trimmed_2.fastq.gz"
 
-    $HISAT2 \
-      -x $INDEX \
-      -1 ${READS}/S${i}_trimmed_1.fastq.gz \
-      -2 ${READS}/S${i}_trimmed_2.fastq.gz \
-      -S S${i}.sam \
+    echo "Running ${sample}"
+
+    hisat2 \
+      -x "$index" \
+      -1 "$R1" \
+      -2 "$R2" \
+      -S "${sample}.sam" \
       --rna-strandness RF \
       -p 16
 done
