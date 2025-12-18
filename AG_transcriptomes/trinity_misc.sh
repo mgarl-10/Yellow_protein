@@ -3,39 +3,39 @@
 #$ -N trinity_abun
 #$ -cwd
 
-TRINITY_UTILS=/ebio/ag-salem/projects/CassidinaeGenomics/code/minconda3/envs/funannotate_2/bin
+trinity_misc=/ebio/ag-salem/projects/CassidinaeGenomics/code/minconda3/envs/funannotate_2/bin
 
-for SPECIES_DIR in */ ; do
-    FASTA="${SPECIES_DIR}/Trinity.fasta"
-    [[ -f "$FASTA" ]] || continue
+for species_dir in */ ; do
+    fasta="${species_dir}/Trinity.fasta"
+    [[ -f "$fasta" ]] || continue
 
-    SPECIES="${SPECIES_DIR%/}"
+    species="${species_dir%/}"
 
-    LEFT="${SPECIES_DIR}/${SPECIES}_trimmed_1.fastq.gz"
-    RIGHT="${SPECIES_DIR}/${SPECIES}_trimmed_2.fastq.gz"
+    left="${species_dir}/${species}_trimmed_1.fastq.gz"
+    right="${species_dir}/${species}_trimmed_2.fastq.gz"
 
-    [[ -f "$LEFT" && -f "$RIGHT" ]] || continue
+    [[ -f "$left" && -f "$right" ]] || continue
 
-    echo "Processing ${SPECIES}"
+    echo "Processing ${species}"
 
-    cd "$SPECIES_DIR" || exit 1
+    cd "$species_dir" || exit 1
 
     # Trinity stats
-    perl "$TRINITY_UTILS/TrinityStats.pl" Trinity.fasta \
+    perl "$trinity_misc/TrinityStats.pl" Trinity.fasta \
         > trinityStats.log
 
     # Abundance estimation
-    perl "$TRINITY_UTILS/align_and_estimate_abundance.pl" \
+    perl "$trinity_misc/align_and_estimate_abundance.pl" \
         --transcripts Trinity.fasta \
         --seqType fq \
-        --left "${SPECIES}_trimmed_1.fastq.gz" \
-        --right "${SPECIES}_trimmed_2.fastq.gz" \
+        --left "${species}_trimmed_1.fastq.gz" \
+        --right "${species}_trimmed_2.fastq.gz" \
         --SS_lib_type RF \
         --est_method RSEM \
         --aln_method bowtie \
         --trinity_mode \
         --prep_reference \
-        --output_dir "rsem_outdir_${SPECIES}" \
+        --output_dir "rsem_outdir_${species}" \
         --coordsort_bam
 
     cd ..
