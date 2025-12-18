@@ -1,6 +1,6 @@
 #!/bin/bash
 #$ -S /bin/bash
-#$ -N trinity_Asp
+#$ -N trinity
 #$ -cwd
 
 source ~/.bashrc 
