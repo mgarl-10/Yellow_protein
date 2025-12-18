@@ -6,28 +6,28 @@
 source ~/.bashrc
 conda activate busco
 
-LINEAGE=/ebio/ag-salem/projects/CassidinaeGenomics/code/minconda3/envs/busco/busco_downloads/lineages/endopterygota_odb10
-DOWNLOADS=/ebio/ag-salem/projects/CassidinaeGenomics/code/minconda3/envs/busco/busco_downloads
-THREADS=64
+lineage=/ebio/ag-salem/projects/CassidinaeGenomics/code/minconda3/envs/busco/busco_downloads/lineages/endopterygota_odb10
+downloads=/ebio/ag-salem/projects/CassidinaeGenomics/code/minconda3/envs/busco/busco_downloads
+threads=64
 
-for SPECIES_DIR in */ ; do
-    FASTA="${SPECIES_DIR}/Trinity.fasta"
+for species_dir in */ ; do
+    fasta="${species_dir}/Trinity.fasta"
 
-    [[ -f "$FASTA" ]] || continue
+    [[ -f "$fasta" ]] || continue
 
-    SPECIES_NAME="${SPECIES_DIR%/}"
-    OUT="busco_${SPECIES_NAME}_transcriptome"
+    species_name="${species_dir%/}"
+    out="busco_${species_name}_transcriptome"
 
-    echo "Running BUSCO for ${SPECIES_NAME}"
+    echo "Running BUSCO for ${species_name}"
 
     busco \
       -m transcriptome \
-      -i "$FASTA" \
-      -o "$OUT" \
-      -l "$LINEAGE" \
+      -i "$fasta" \
+      -o "$out" \
+      -l "$lineage" \
       -f \
       --offline \
-      --download_path "$DOWNLOADS" \
-      -c "$THREADS"
+      --download_path "$downloads" \
+      -c "$threads"
 done
 
