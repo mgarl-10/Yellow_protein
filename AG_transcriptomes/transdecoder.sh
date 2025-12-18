@@ -1,12 +1,37 @@
 #!/bin/bash
 #$ -S /bin/bash
-#$ -N transdec_Acromis
+#$ -N transdec
 #$ -cwd
 
+source ~/.bashrc
 
-#/ebio/ag-salem/projects/BeetleGenomes_Annotation/code/TransDecoder/TransDecoder.LongOrfs -t Acromis_sparsa_AG_trinity_out/Trinity.fasta --output_dir Acromis_sparsa_transdecoder
+for SPECIES_DIR in */ ; do
+    FASTA=$(ls "${SPECIES_DIR}"/*_trinity.fasta 2>/dev/null)
 
-#hmmscan --cpu 16 --domtblout pfam_Acromis_sparsa.domtblout /ebio/ag-salem/projects/BeetleGenomes_Annotation/code/Trinotate/Pfam-A.hmm ./Acromis_sparsa_transdecoder/longest_orfs.pep
+    [[ -f "$FASTA" ]] || continue
 
+    BASENAME=$(basename "$FASTA")
+    TAG=${BASENAME%_trinity.fasta}
 
-/ebio/ag-salem/projects/BeetleGenomes_Annotation/code/TransDecoder/TransDecoder.Predict -t Acromis_sparsa_AG_trinity_out/Trinity.fasta --retain_pfam_hits pfam_Acromis_sparsa.domtblout --cpu 16 --output_dir Acromis_sparsa_transdecoder
+    echo "Processing ${TAG}"
+
+    cd "$SPECIES_DIR" || exit
+
+    # Long ORFs
+    TransDecoder.LongOrfs -t "$BASENAME" -S
+
+    # Pfam scan
+    hmmscan \
+      --cpu 16 \
+      --domtblout "${TAG}_pfam.domtblout" \
+      Pfam-A.hmm \
+      "${TAG}.transdecoder_dir/longest_orfs.pep"
+
+    # Predict coding sequences
+    TransDecoder.Predict \
+      -t "$BASENAME" \
+      --retain_pfam_hits "${TAG}_pfam.domtblout" \
+      --cpu 16
+
+    cd ..
+done
