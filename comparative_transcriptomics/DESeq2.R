@@ -33,27 +33,6 @@ write.csv( as.data.frame(res), file="Adult_FG_Adult_OV.csv")
 Adult_OV_Adult_FG<-results(dds, contrast=c("Treatment","Adult_OV","Adult_FG"))
 
 
-EnhancedVolcano(Adult_OV_Adult_FG,
-   lab = rownames(Adult_OV_Adult_FG),
-   x = 'log2FoldChange',
-   y = 'padj',
-   selectLab = c('FUN_023368-T1'),
-   xlab = bquote(~Log[2]~ 'fold change'),
-   pCutoff = 5e-2,
-   FCcutoff = 2.0,
-   pointSize = 2,
-   labSize = 2,
-   labCol = 'black',
-   labFace = 'bold',
-   boxedLabels = TRUE,
-   colAlpha = 4/5,
-   legendPosition = 'right',
-   legendLabSize = 10,
-   legendIconSize = 4,
-   drawConnectors = TRUE,
-   widthConnectors = 1.0,
-   colConnectors = 'black')
-
 #########green#############
 # Load required libraries
 library(DESeq2)         # Ensure DESeq2 is installed
