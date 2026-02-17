@@ -1,6 +1,4 @@
-# Yellow Protein Evolution and Symbiosis Analysis Pipeline
-
-Bioinformatics workflows supporting:
+# Bioinformatics workflows supporting:
 
 García-Lozano M, Emmerich C, Henzler C, Koch I, Lanz C, Ayas A, Pons I, Buttstedt A, Hipp K, Salem H.  
 **Yellow protein co-opted to sustain obligate symbiosis in beetles.**
