@@ -1,0 +1,11 @@
+Acromis_sparsa
+Chelymorpha_alternans
+Chelymorpha_bulatta
+Chelymorpha_gressoria
+Aspidimorpha_quinquefasciata
+Cassida_rubiginosa
+Charidotella_sexpunctata
+Escherichia_coli
+Vibrio_fischeri
+Ishikawaella_capsulata
+Buchnera_aphidicola
