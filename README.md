@@ -11,6 +11,7 @@ This repository contains analysis pipelines for:
 2. **Phylogenetic analysis** of Yellow protein family genes
 3. **Ovary-associated gland transcriptome analysis** for additional Cassidinae species
 4. **Co-phylogenetic analysis** between Yellow proteins and _Stammera_ symbionts
+5. **Positive selection analysis** for Yellow proteins
 
 All analyses were performed on a Linux high-performance computing (HPC) cluster using `qsub`.
 
@@ -278,11 +279,17 @@ This step:
 
 This section describes the reconstruction of host and symbiont phylogenies for co-phylogenetic comparison.
 
+Navigate to the analysis directory:
+
+```bash
+cd phylogenies
+```
+
 ---
 
 ## 4.1 Host Phylogeny: Cassidinae Species (7 Species + 1 Outgroup)
 
-Phylogenetic reconstruction was performed using protein sequences from seven Cassidinae species and one outgroup species.
+Phylogenetic reconstruction was performed using protein sequences from seven Cassidinae species and one outgroup species. 
 
 ### Step 1: Multiple Sequence Alignment
 
@@ -326,8 +333,8 @@ Core gene sequences were extracted using:
 
 ```bash
 bash extract_sequences.sh
-python fasomerecords.py species.txt
 ```
+Requires: fasomerecords.py and species.txt
 
 This step:
 - Extracts homologous sequences across species
@@ -377,6 +384,72 @@ qsub raxml.sh
 
 ## 4.3 Co-phylogenetic Comparison
 
-The resulting trees were visualized side-by-side in Dendroscope3 119 as a tanglegram using the Neighbor Net Tanglegram algorithm. Cophylogenetic congruence between yellow genes and Stammera symbionts was assessed using eMPRess GUI. 
+The resulting trees were visualized side-by-side in Dendroscope3 as a tanglegram using the Neighbor Net Tanglegram algorithm. Cophylogenetic congruence between yellow genes and Stammera symbionts was assessed using eMPRess GUI. 
+
+
+# 5 Positive selection analysis for Yellow proteins
+
+This section describes the detection of selection signatures in Yellow protein-coding genes.
+
+Navigate to the analysis directory:
+
+```bash
+cd positive_selection
+```
+
+---
+
+## 5.1 Sequence Retrieval
+
+Protein and corresponding coding sequences (CDS) were obtained from Trinity assemblies using TransDecoder (see Section 3.5).
+
+Outputs used:
+
+- Predicted protein sequences (.pep)
+- Predicted coding sequences (.cds)
+
+---
+
+## 5.2 Protein Alignment
+
+Protein sequences were aligned using MUSCLE:
+
+```bash
+muscle -in yellow_proteins.fasta -out yellow_proteins_aligned.fasta
+```
+
+This step generates amino acid alignments for downstream codon-aware alignment.
+
+---
+
+## 5.3 Codon-Aware Alignment
+
+Codon-aware nucleotide alignments were generated using PAL2NAL:
+
+```bash
+qsub pal2nal_alignments.sh
+```
+
+This step:
+- Combines protein alignment and CDS sequences
+- Produces codon-based alignments
+- Preserves reading frame for selection analysis
+
+---
+
+## 5.4 Detection of Positive Selection
+
+Positive selection was tested using the **FEL (Fixed Effects Likelihood)** method implemented in Datamonkey (HyPhy framework).
+
+Steps:
+1. Upload codon alignment to Datamonkey.
+2. Select the FEL model.
+3. Use the corresponding maximum likelihood phylogenetic tree.
+4. Identify sites under selection based on statistical significance (p-value threshold).
+
+# 6 Alpha-fold modelling 
+
+cd pymol
+
 
  
