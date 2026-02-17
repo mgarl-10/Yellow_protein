@@ -6,8 +6,8 @@
 source ~/.bashrc
 conda activate busco
 
-lineage=/ebio/ag-salem/projects/CassidinaeGenomics/code/minconda3/envs/busco/busco_downloads/lineages/endopterygota_odb10
-downloads=/ebio/ag-salem/projects/CassidinaeGenomics/code/minconda3/envs/busco/busco_downloads
+lineage=/busco/busco_downloads/lineages/endopterygota_odb10
+downloads=/busco/busco_downloads
 threads=64
 
 for species_dir in */ ; do
