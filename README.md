@@ -1,4 +1,4 @@
-# Bioinformatics workflows supporting:
+# Bioinformatics worflow and statistical analyses for: 
 
 García-Lozano M, Emmerich C, Henzler C, Koch I, Lanz C, Ayas A, Pons I, Buttstedt A, Hipp K, Salem H.  
 **Yellow protein co-opted to sustain obligate symbiosis in beetles.**
@@ -387,14 +387,14 @@ qsub align_muscle_seq.sh
 Individual alignments were concatenated into a supermatrix:
 
 ```bash
-perl catfasta2phyml.pl *.fasta > concatenated_alignment.phy
+perl catfasta2phyml.pl *.fas > out.phy 2> partitions.txt
 ```
 
 ---
 
 ### Step 4: Partitioning Scheme and Model Selection
 
-PartitionFinder was used to infer the optimal partitioning scheme and substitution models.
+PartitionFinder was used to infer the optimal partitioning scheme and substitution models. 
 
 ```bash
 qsub partitionfinder.sh
@@ -414,7 +414,7 @@ qsub raxml.sh
 
 ## 4.3 Co-phylogenetic Comparison
 
-The resulting trees were visualized side-by-side in Dendroscope3 as a tanglegram using the Neighbor Net Tanglegram algorithm. Cophylogenetic congruence between yellow genes and Stammera symbionts was assessed using eMPRess GUI. 
+The resulting trees were visualized side-by-side in Dendroscope3 as a tanglegram using the Neighbor Net Tanglegram algorithm. Cophylogenetic congruence between yellow genes and _Stammera_ symbionts was assessed using eMPRess GUI. 
 
 
 # 5 Positive selection analysis for Yellow proteins
