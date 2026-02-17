@@ -282,7 +282,7 @@ This section describes the reconstruction of host and symbiont phylogenies for c
 Navigate to the analysis directory:
 
 ```bash
-cd phylogenies
+cd phylogenies/Yellow_protein_Cassidinae
 ```
 
 ---
@@ -321,9 +321,15 @@ qsub raxml.sh
 
 ---
 
-## 4.2 *Stammera* Symbiont Phylogeny (Same Cassidinae Species)
+## 4.2 *Stammera* Symbiont Phylogeny 
 
 Phylogenetic reconstruction of *Stammera* symbionts was conducted using core gene sequences and corresponding outgroups.
+
+Navigate to the analysis directory:
+
+```bash
+cd phylogenies/Stammera_phylogeny
+```
 
 ---
 
