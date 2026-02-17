@@ -364,7 +364,7 @@ Core gene sequences were extracted using:
 ```bash
 bash extract_sequences.sh
 ```
-Requires: fasomerecords.py and species.txt
+Requires faSomeRecords.py and species.txt files 
 
 This step:
 - Extracts homologous sequences across species
