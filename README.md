@@ -9,14 +9,15 @@ This repository contains analysis pipelines for:
 
 1. **Comparative transcriptomic analysis** of *Chelymorpha alternans*
 2. **Phylogenetic analysis** of Yellow protein family genes
-3. 
+3. **Ovary-associated gland transcriptome analysis** for additional Cassidinae species 
 
 All analyses were performed on a Linux high-performance computing (HPC) cluster using `qsub`.
 
+---
 
 # 1. Comparative Transcriptomics
 
-Navigate to the transcriptomics workflow:
+Navigate to the phylogenetic analysis directory:
 
 ```bash
 cd comparative_transcriptomics
@@ -125,58 +126,151 @@ cd phylogenies/Yellow_protein_tree
 
 ---
 
-## 2.1 Multiple Sequence Alignment
+## 2.1 Sequence Renaming
+
+To standardize FASTA headers and retain species names, sequences were renamed using:
+
+- `fasta_IDS.csv`
+- `rename_fasta.py`
+
+```bash
+python rename_fasta.py input_sequences.fasta fasta_IDS.csv > renamed_sequences.fasta
+```
+
+This step ensures consistent species naming across downstream analyses.
+
+---
+
+## 2.2 Multiple Sequence Alignment
 
 Sequences were aligned using MAFFT:
 
 ```bash
-mafft --auto input_sequences.fasta > aligned_sequences.fasta
-```
-
----
-
-## 2.2 Phylogenetic Tree Construction
-
-(Include your tree-building software here if applicable, e.g., IQ-TREE, RAxML, or FastTree.)
-
-Example:
-
-```bash
-iqtree -s aligned_sequences.fasta -m TEST -bb 1000
+mafft --auto renamed_sequences.fasta > aligned_sequences.fasta
 ```
 
 This step:
-- Selects the best-fit substitution model
+- Performs multiple sequence alignment
+- Automatically selects appropriate alignment parameters
+
+---
+
+## 2.3 Model Selection
+
+The best-fit amino acid substitution model was determined using ModelTest:
+
+```bash
+qsub modeltest.sh
+```
+
+This step:
+- Evaluates candidate substitution models
+- Selects the optimal model based on information criteria
+
+---
+
+## 2.4 Phylogenetic Tree Construction
+
+Phylogenetic reconstruction was performed using RAxML:
+
+```bash
+qsub raxml.sh
+```
+
+This step:
+- Applies the best-fit substitution model
 - Performs bootstrap analysis
-- Generates a phylogenetic tree file
+- Generates the final maximum likelihood tree
 
 ---
 
-# Reproducibility Notes
+# 3. Ovary-Associated Gland Transcriptome Analysis for Additional Cassidinae Species
 
-- All scripts were executed in a Linux HPC environment.
-- File paths may need to be adjusted depending on system configuration.
-- Ensure software versions are compatible.
+Navigate to the analysis directory:
 
----
-
-# Citation
-
-If you use this pipeline in your research, please cite:
-
-Author et al., Year, Journal (if applicable)
+```bash
+cd AG_transcriptomes
+```
 
 ---
 
-# Contact
+## Input Files
 
-For questions or issues, please open a GitHub issue or contact:
+- Paired-end FASTQ files:
+  - `*_R1.fastq.gz`
+  - `*_R2.fastq.gz`
+- `TruSeq3-PE.fa` adapter file
 
-Your Name  
-your.email@institution.edu
+---
 
+## Output Files
 
+This workflow generates:
 
+- Trimmed FASTQ files
+- De novo transcriptome assemblies
+- BUSCO completeness scores
+- Transcript abundance estimates
+- Predicted protein-coding sequences
 
+---
+
+## 3.1 Quality Control
+
+### Adapter Removal and Quality Trimming
+
+```bash
+qsub trimmomatic.sh
+```
+
+This step removes adapter contamination and low-quality bases.
+
+---
+
+## 3.2 De Novo Transcriptome Assembly (Trinity)
+
+```bash
+qsub trinity.sh
+```
+
+This step:
+- Assembles transcriptomes without a reference genome
+- Generates assembled transcript FASTA files
+
+---
+
+## 3.3 Assembly Quality Assessment (BUSCO)
+
+```bash
+qsub busco.sh
+```
+
+This step:
+- Evaluates assembly completeness
+- Reports single-copy ortholog recovery statistics
+
+---
+
+## 3.4 Transcript Abundance Estimation (RSEM)
+
+```bash
+qsub trinity_misc.sh
+```
+
+This step:
+- Estimates transcript abundance
+- Generates normalized expression values (e.g., TPM)
+
+---
+
+## 3.5 Protein-Coding Gene Prediction (TransDecoder)
+
+```bash
+qsub transdecoder.sh
+```
+
+This step:
+- Identifies candidate coding regions
+- Predicts protein sequences from assembled transcripts
 
 
