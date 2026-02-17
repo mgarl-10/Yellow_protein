@@ -1,8 +1,9 @@
+# Yellow Protein Evolution and Symbiosis Analysis Pipeline
 
+Bioinformatics workflows supporting:
 
-Bioinformatics analysis pipeline for: 
-
-García-Lozano M, Emmerich C, Henzler C, Koch I, Lanz C, Ayas A, Pons I, Buttstedt A, Hipp K, Salem H. Yellow protein co-opted to sustain obligate symbiosis in beetles.
+García-Lozano M, Emmerich C, Henzler C, Koch I, Lanz C, Ayas A, Pons I, Buttstedt A, Hipp K, Salem H.  
+**Yellow protein co-opted to sustain obligate symbiosis in beetles.**
 
 
 This repository contains analysis pipelines for:
@@ -12,14 +13,39 @@ This repository contains analysis pipelines for:
 3. **Ovary-associated gland transcriptome analysis** for additional Cassidinae species
 4. **Co-phylogenetic analysis** between Yellow proteins and _Stammera_ symbionts
 5. **Positive selection analysis** for Yellow proteins
-
-All analyses were performed on a Linux high-performance computing (HPC) cluster using `qsub`.
+6. **AlphaFold modeling and comparison** of Yellow proteins
 
 ---
 
+## Software Requirements
+
+Most of  analyses were performed on a Linux HPC cluster using `qsub`.
+
+Core tools:
+- Trimmomatic
+- HISAT2
+- SAMtools
+- HTSeq
+- DESeq2
+- Trinity
+- BUSCO
+- RSEM
+- TransDecoder
+- MAFFT
+- MUSCLE
+- RAxML
+- PartitionFinder
+- PAL2NAL
+- Datamonkey (HyPhy FEL)
+- AlphaFold Server (AF3)
+- PyMOL
+- Dendroscope3
+- eMPRess
+
+
 # 1. Comparative Transcriptomics
 
-Navigate to the phylogenetic analysis directory:
+Navigate to the transcriptomics analysis directory:
 
 ```bash
 cd comparative_transcriptomics
@@ -107,7 +133,7 @@ This step:
 ## 1.4 Differential Gene Expression Analysis
 
 ```bash
-DESeq2.R
+Rscript DESeq2.R
 ```
 
 This script:
@@ -370,7 +396,7 @@ perl catfasta2phyml.pl *.fasta > concatenated_alignment.phy
 
 ### Step 4: Partitioning Scheme and Model Selection
 
-PartitionFinder was used to determine the best partitioning scheme and substitution models:
+PartitionFinder was used to infer the optimal partitioning scheme and substitution models.
 
 ```bash
 qsub partitionfinder.sh
@@ -579,4 +605,22 @@ color red, pos_sites
 ```
 
 ---
+
+## 6.6 Model Confidence Visualization (pLDDT)
+
+AlphaFold confidence scores (pLDDT), stored in the B-factor field of the predicted structures, were visualized in PyMOL using the standard AlphaFold color scheme (blue = high confidence).
+
+```python
+hide everything
+show cartoon
+
+# Apply AlphaFold-style confidence coloring
+spectrum b, red_orange_yellow_cyan_blue, minimum=0, maximum=100
+```
+
+Color interpretation:
+- **Blue**: very high confidence (pLDDT > 90)
+- **Cyan**: confident (70–90)
+- **Yellow**: low confidence (50–70)
+- **Orange/Red**: very low confidence (< 50)
 
