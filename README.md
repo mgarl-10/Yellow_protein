@@ -47,6 +47,8 @@ Core tools:
 - PyMOL
 - Dendroscope3
 - eMPRess
+- Bowtie
+- featureCounts
 - R
 
 
