@@ -629,36 +629,45 @@ Color interpretation:
 - **Yellow**: low confidence (50–70)
 - **Orange/Red**: very low confidence (< 50)
 
-# 7. Symbiont transcriptome response under low humidity conditions
 
-## 7.1 
+# 7. Symbiont Transcriptome Response Under Low Humidity Conditions
 
-Navigate to the transcriptomics analysis directory:
+This workflow processes *Stammera* symbiont RNA-seq data to quantify gene expression and assess differential transcriptional responses under low humidity conditions.
+
+Navigate to the analysis directory:
 
 ```bash
 cd symbiont_transcriptomics
 ```
 
-## Input Files
+---
+
+## 7.1 Input Files
 
 The following files are required:
 
-- Forward FASTQ files  
+- **Single-end** FASTQ files  
   - `*_R1.fastq.gz`
-- Reference genome (FASTA format)
-- Gene annotation file (gff format)
-- `TruSeq3-PE.fa` adapter file
+- Symbiont reference genome (FASTA format)
+- Gene annotation file (GFF format)
+- `TruSeq3-PE.fa` adapter file (for trimming)
 
-## Output Files
+---
 
-The workflow generates:
+## 7.2 Output Files
+
+This workflow generates:
 
 - Trimmed FASTQ files
-- SAM files
+- Alignment files (SAM format)
 - Gene-level count matrix
-- Differential expression results table
+- Differential expression results tables
+- Volcano plots (per treatment comparison)
+- Heatmap for the Yellow condition
 
-## 7.2 Quality Control
+---
+
+## 7.3 Quality Control
 
 ### Adapter removal and quality trimming
 
@@ -666,9 +675,10 @@ The workflow generates:
 qsub trim.sh
 ```
 
+
 ---
 
-## 7.3 Mapping to Reference Genome
+## 7.4 Mapping to Reference Genome
 
 ### Step 1: Index the reference genome
 
@@ -676,33 +686,41 @@ qsub trim.sh
 bowtie2-build Stammera_Chelymorpha_alternans.fasta Stammera
 ```
 
-### Step 2: Align trimmed reads to _Stammera_ genome
+### Step 2: Align trimmed reads to the *Stammera* genome
+
 ```bash
 qsub map.sh
 ```
 
 This step:
-- Aligns paired-end reads to the reference genome
+- Aligns single-end reads to the symbiont reference genome using Bowtie2
 - Generates SAM alignment files
 
+---
 
-## 7.4 Quantification of Mapped Reads
+## 7.5 Quantification of Mapped Reads
 
 ```bash
 qsub featurecounts.sh
 ```
 
+This step:
+- Assigns mapped reads to annotated genes
+- Generates a gene-level count matrix for downstream differential expression analysis
+
 ---
 
-## 7.5 Differential Gene Expression Analysis
+## 7.6 Differential Gene Expression Analysis
 
 ```bash
 Rscript DESeq_script_Stammera.R
 ```
 
 This script:
-- Performs differential expression analysis using DESeq2 for each treatment independently
+- Performs differential expression analysis using DESeq2
+- Tests treatment-specific responses under low humidity conditions
 - Produces statistical results (log2FC, p-values, adjusted p-values)
-- Generates volcano plots for each treatment
-- Generates heatmap for yellow condition
+- Generates volcano plots for each treatment comparison
+- Generates a heatmap with annotations for the Yellow condition
+
 
