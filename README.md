@@ -17,7 +17,7 @@ This repository contains analysis pipelines for:
 
 ## Software Requirements
 
-Most of  analyses were performed on a Linux HPC cluster using `qsub`.
+Most of the analyses were performed on a Linux HPC cluster using `qsub`.
 
 Core tools:
 - Trimmomatic
