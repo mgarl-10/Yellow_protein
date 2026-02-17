@@ -106,7 +106,7 @@ This step:
 ## 1.4 Differential Gene Expression Analysis
 
 ```bash
-Rscript DESeq2.R
+DESeq2.R
 ```
 
 This script:
