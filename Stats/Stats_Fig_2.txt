@@ -28,7 +28,7 @@ fem <- fem %>%
 # Normality checks
 shapiro.test(fem$Ratio_Av_AG)
 ggdensity(fem$Ratio_Av_AG,
-          main = "Density plot of yellow expression (raw)",
+          main = "Density plot of yellow expression",
           xlab = "Yellow expression (Ratio_Av_AG)")
 
 shapiro.test(fem$logRatio_Av_AG)
@@ -109,6 +109,7 @@ ggdensity(ag$Ratio_Av_AG,
 
 t_res <- t.test(Ratio_Av_AG ~ Condition.f, data = ag)
 print(t_res)
+
 
 p2e <- ggboxplot(
   ag,
