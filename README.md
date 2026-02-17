@@ -9,7 +9,8 @@ This repository contains analysis pipelines for:
 
 1. **Comparative transcriptomic analysis** of *Chelymorpha alternans*
 2. **Phylogenetic analysis** of Yellow protein family genes
-3. **Ovary-associated gland transcriptome analysis** for additional Cassidinae species 
+3. **Ovary-associated gland transcriptome analysis** for additional Cassidinae species
+4. **Co-phylogenetic analysis** between Yellow proteins and _Stammera_ symbionts
 
 All analyses were performed on a Linux high-performance computing (HPC) cluster using `qsub`.
 
@@ -259,7 +260,7 @@ qsub trinity_misc.sh
 
 This step:
 - Estimates transcript abundance
-- Generates normalized expression values (e.g., TPM)
+- Generates normalized expression values
 
 ---
 
@@ -273,4 +274,109 @@ This step:
 - Identifies candidate coding regions
 - Predicts protein sequences from assembled transcripts
 
+# 4. Co-phylogenetic Analysis Between Yellow Proteins and *Stammera* Symbionts
 
+This section describes the reconstruction of host and symbiont phylogenies for co-phylogenetic comparison.
+
+---
+
+## 4.1 Host Phylogeny: Cassidinae Species (7 Species + 1 Outgroup)
+
+Phylogenetic reconstruction was performed using protein sequences from seven Cassidinae species and one outgroup species.
+
+### Step 1: Multiple Sequence Alignment
+
+Alignment was performed using MUSCLE:
+
+```bash
+muscle -in input_proteins.fasta -out aligned_proteins.fasta
+```
+
+---
+
+### Step 2: Model Selection
+
+The best-fit amino acid substitution model was determined using ModelTest:
+
+```bash
+qsub modeltest.sh
+```
+
+---
+
+### Step 3: Phylogenetic Tree Reconstruction
+
+Maximum likelihood phylogeny was reconstructed using RAxML:
+
+```bash
+qsub raxml.sh
+```
+
+---
+
+## 4.2 *Stammera* Symbiont Phylogeny (Same Cassidinae Species)
+
+Phylogenetic reconstruction of *Stammera* symbionts was conducted using core gene sequences and corresponding outgroups.
+
+---
+
+### Step 1: Extraction of Core Sequences
+
+Core gene sequences were extracted using:
+
+```bash
+bash extract_sequences.sh
+python fasomerecords.py species.txt
+```
+
+This step:
+- Extracts homologous sequences across species
+- Generates per-gene FASTA files for alignment
+
+---
+
+### Step 2: Individual Gene Alignments
+
+Each gene was aligned separately using MUSCLE:
+
+```bash
+qsub align_muscle_seq.sh
+```
+
+---
+
+### Step 3: Concatenation of Alignments
+
+Individual alignments were concatenated into a supermatrix:
+
+```bash
+perl catfasta2phyml.pl *.fasta > concatenated_alignment.phy
+```
+
+---
+
+### Step 4: Partitioning Scheme and Model Selection
+
+PartitionFinder was used to determine the best partitioning scheme and substitution models:
+
+```bash
+qsub partitionfinder.sh
+```
+
+---
+
+### Step 5: Phylogenetic Tree Reconstruction
+
+The concatenated alignment was used for maximum likelihood tree reconstruction with RAxML:
+
+```bash
+qsub raxml.sh
+```
+
+---
+
+## 4.3 Co-phylogenetic Comparison
+
+The resulting trees were visualized side-by-side in Dendroscope3 119 as a tanglegram using the Neighbor Net Tanglegram algorithm. Cophylogenetic congruence between yellow genes and Stammera symbionts was assessed using eMPRess GUI. 
+
+ 
