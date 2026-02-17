@@ -3,7 +3,7 @@
 #$ -N trinity_abun
 #$ -cwd
 
-trinity_misc=/ebio/ag-salem/projects/CassidinaeGenomics/code/minconda3/envs/funannotate_2/bin
+trinity_misc=Trinity/bin/
 
 for species_dir in */ ; do
     fasta="${species_dir}/Trinity.fasta"
