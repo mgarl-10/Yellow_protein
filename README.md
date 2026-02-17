@@ -620,7 +620,6 @@ AlphaFold confidence scores (pLDDT), stored in the B-factor field of the predict
 hide everything
 show cartoon
 
-# Apply AlphaFold-style confidence coloring
 spectrum b, red_orange_yellow_cyan_blue, minimum=0, maximum=100
 ```
 
@@ -629,4 +628,81 @@ Color interpretation:
 - **Cyan**: confident (70–90)
 - **Yellow**: low confidence (50–70)
 - **Orange/Red**: very low confidence (< 50)
+
+# 7. Symbiont transcriptome response under low humidity conditions
+
+## 7.1 
+
+Navigate to the transcriptomics analysis directory:
+
+```bash
+cd symbiont_transcriptomics
+```
+
+## Input Files
+
+The following files are required:
+
+- Forward FASTQ files  
+  - `*_R1.fastq.gz`
+- Reference genome (FASTA format)
+- Gene annotation file (gff format)
+- `TruSeq3-PE.fa` adapter file
+
+## Output Files
+
+The workflow generates:
+
+- Trimmed FASTQ files
+- SAM files
+- Gene-level count matrix
+- Differential expression results table
+
+## 7.2 Quality Control
+
+### Adapter removal and quality trimming
+
+```bash
+qsub trim.sh
+```
+
+---
+
+## 7.3 Mapping to Reference Genome
+
+### Step 1: Index the reference genome
+
+```bash
+bowtie2-build Stammera_Chelymorpha_alternans.fasta Stammera
+```
+
+### Step 2: Align trimmed reads to _Stammera_ genome
+```bash
+qsub map.sh
+```
+
+This step:
+- Aligns paired-end reads to the reference genome
+- Generates SAM alignment files
+
+
+## 7.4 Quantification of Mapped Reads
+
+```bash
+qsub featurecounts.sh
+```
+
+---
+
+## 7.5 Differential Gene Expression Analysis
+
+```bash
+Rscript DESeq_script_Stammera.R
+```
+
+This script:
+- Performs differential expression analysis using DESeq2 for each treatment independently
+- Produces statistical results (log2FC, p-values, adjusted p-values)
+- Generates volcano plots for each treatment
+- Generates heatmap for yellow condition
 
