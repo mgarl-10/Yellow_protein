@@ -9,5 +9,5 @@ featureCounts \
   -t CDS,rRNA,misc_RNA,tRNA \
   -g Name \
   -a Stammera_Chelymorpha_alternans.gff \
-  -o Stammera_featurecounts_all_samples_single_Name.txt \
+  -o Stammera_featurecounts_all_samples.txt \
   *_Stammera_single.sam
