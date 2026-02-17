@@ -1,17 +1,24 @@
-# Bioinformatics worflow and statistical analyses for: 
+# Bioinformatics Workflows and Statistical Analyses
+
+This repository contains the computational and statistical analyses supporting:
 
 García-Lozano M, Emmerich C, Henzler C, Koch I, Lanz C, Ayas A, Pons I, Buttstedt A, Hipp K, Salem H.  
 **Yellow protein co-opted to sustain obligate symbiosis in beetles.**
 
+---
 
-This repository contains analysis pipelines for:
+## Overview
+
+
+The analyses include:
 
 1. **Comparative transcriptomic analysis** of *Chelymorpha alternans*
-2. **Phylogenetic analysis** of Yellow protein family genes
+2. **Phylogenetic reconstruction** of Yellow protein family genes
 3. **Ovary-associated gland transcriptome analysis** for additional Cassidinae species
-4. **Co-phylogenetic analysis** between Yellow proteins and _Stammera_ symbionts
-5. **Positive selection analysis** for Yellow proteins
-6. **AlphaFold modeling and comparison** of Yellow proteins
+4. **Co-phylogenetic analysis** between Yellow proteins and *Stammera* symbionts
+5. **Positive selection analysis** of Yellow proteins
+6. **AlphaFold structural modeling and structural comparison**
+7. **Statistical analyses and figure generation**
 
 ---
 
@@ -39,6 +46,7 @@ Core tools:
 - PyMOL
 - Dendroscope3
 - eMPRess
+- R
 
 
 # 1. Comparative Transcriptomics
