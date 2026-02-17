@@ -453,9 +453,130 @@ Steps:
 3. Use the corresponding maximum likelihood phylogenetic tree.
 4. Identify sites under selection based on statistical significance (p-value threshold).
 
-# 6 Alpha-fold modelling 
+# 6. AlphaFold Structural Modeling and Structural Comparison
 
+This section describes structural prediction and comparative analysis of Yellow proteins across seven Cassidinae species.
+
+---
+
+## 6.1 Structure Prediction
+
+Predicted protein structures were generated using the AlphaFold Server (AlphaFold 3).
+
+```bash
 cd pymol
+```
 
+- The seven Cassidinae Yellow protein sequences were submitted individually.
+- CIF files corresponding to **model 0** were downloaded for downstream structural analyses.
 
- 
+---
+
+## 6.2 Structural Alignment in PyMOL
+
+The predicted structures were imported into PyMOL for structural comparison.
+
+The *C. alternans* Yellow protein was selected as the reference structure.
+
+### Pairwise Structural Alignment
+
+```python
+align model_5, model_1
+align model_5, model_2
+align model_5, model_3
+align model_5, model_4
+align model_5, model_6
+align model_5, model_7
+```
+
+---
+
+## 6.3 Per-Residue RMSD Calculation
+
+A custom PyMOL script (`pymol_aln.py`) was used to calculate per-residue RMSD values by measuring distances between Cα atoms across aligned models.
+
+```python
+run pymol_aln.py
+multi_rmsd_residuewise("model_5", ["model_1", "model_2", "model_3", "model_4", "model_6", "model_7"])
+```
+
+RMSD values were:
+
+- Stored in the **B-factor field** of the reference model
+- Visualized using a red–blue color gradient:
+  - **Red** → low structural variability
+  - **Blue** → high structural variability
+
+Legend generation:
+
+```python
+run spectrumbar_rmsd.py
+spectrumbar_rmsd name=legend_rmsd, start="0,0,0", length=5, radius=0.5, steps=5, rmsd_min=10.0, rmsd_max=95.0
+```
+
+Structure representation:
+
+```python
+cartoon oval
+```
+
+---
+
+## 6.4 Model Confidence (pLDDT) Analysis
+
+Model confidence scores (pLDDT) were extracted from AlphaFold predictions and summarized by exon region.
+
+Exon boundaries were defined based on the *C. alternans* Yellow gene model.
+
+For the remaining species:
+- Exon 1 and exons 2–3 were inferred by aligning transcript-derived sequences to the *C. alternans* reference
+- This was necessary due to the absence of annotated exon structures
+
+Extraction was performed using:
+
+```bash
+python extract_plddt_with_regions.py
+```
+
+---
+
+## 6.5 Mapping Functional and Evolutionary Sites
+
+### Hydrophobic Residues
+
+Hydrophobic residues were identified and highlighted in PyMOL based on amino acid identity:
+
+- Ala
+- Val
+- Leu
+- Ile
+- Met
+- Phe
+- Trp
+- Pro
+
+```python
+load C_alternans.pdb
+hide everything
+show cartoon
+color gray
+
+select hydro_res, resn ALA+VAL+LEU+ILE+MET+PHE+TRP+PRO
+show sticks, hydro_res
+color yellow, hydro_res
+```
+
+---
+
+### Positively Selected Sites
+
+Codon sites identified as evolving under positive selection (see Section 5) were mapped onto the predicted structure.
+
+```python
+select pos_sites, resi 156+189+226+271+276+281+415+700
+show spheres, pos_sites
+color red, pos_sites
+```
+
+---
+
