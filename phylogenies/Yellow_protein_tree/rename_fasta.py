@@ -14,5 +14,5 @@ with open(output_fasta, "w") as output_handle:
     for record in SeqIO.parse(input_fasta, "fasta"):
         if record.id in name_dict:
             record.id = name_dict[record.id]
-            record.description = record.id  # optional: overwrite full header
+            record.description = record.id  
         SeqIO.write(record, output_handle, "fasta")
