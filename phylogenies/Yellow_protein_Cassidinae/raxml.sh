@@ -4,6 +4,6 @@
 #$ -cwd
 
 
-/ebio/ag-salem/projects/Metagenomic_assemblies/code/raxml-ng_v1.2.0_linux_x86_64_MPI/bin/raxml-ng-mpi -all -msa yellow_protein_alignment_outgroup.phy --prefix 7species_1outgroup_protein --threads 64 -model FLU+I+G4 --tree pars{25},rand{25} 
+raxml-ng-mpi -all -msa yellow_protein_alignment_outgroup.phy --prefix 7species_1outgroup_protein --threads 64 -model FLU+I+G4 --tree pars{25},rand{25} 
 
 
