@@ -1,19 +1,18 @@
 # Figure 2. Yellow is produced in the ovary-associated glands and is secreted into the egg caplet, embedding Stammera.
+
 # Figure 2D: Yellow expression across female body compartments + sex comparison
 # Figure 2E: Yellow expression in ovary-associated glands across developmental stages
 
-suppressPackageStartupMessages({
-  library(dplyr)
-  library(ggpubr)
-  library(rstatix)
-})
+library(dplyr)
+library(ggpubr)
+library(rstatix)
 
 
-#Figure 2D. Females: tissue effect
+# Figure 2D. Females: tissue effect
 
 fem <- read.table("old_females.txt", header = TRUE)
 
-# Ensure factors
+# Factors
 fem$Condition.f <- factor(fem$Condition)
 fem$Tissue.f    <- factor(fem$Tissue)
 fem$Replicate.f <- factor(fem$Replicate)
@@ -25,16 +24,11 @@ fem$Condition.f <- ordered(fem$Condition.f, levels = c("FG_F","SO_F","MG_F","HG_
 fem <- fem %>%
   mutate(logRatio_Av_AG = log10(Ratio_Av_AG + 1))
 
-# Normality checks
+# Normality check
 shapiro.test(fem$Ratio_Av_AG)
 ggdensity(fem$Ratio_Av_AG,
-          main = "Density plot of yellow expression",
+          main = "Density plot of yellow expression (raw)",
           xlab = "Yellow expression (Ratio_Av_AG)")
-
-shapiro.test(fem$logRatio_Av_AG)
-ggdensity(fem$logRatio_Av_AG,
-          main = "Density plot of yellow expression (log10 + 1)",
-          xlab = "log10(Ratio_Av_AG + 1)")
 
 # Nonparametric tests 
 kw_fem <- kruskal.test(Ratio_Av_AG ~ Tissue.f, data = fem)
@@ -56,8 +50,20 @@ sexdat$Replicate.f <- factor(sexdat$Replicate)
 sexdat$Sex.f       <- factor(sexdat$Sex)
 
 
+# Normality check
+
+shapiro.test(sexdat$Ratio_Av_AG)
+ggdensity(sexdat$Ratio_Av_AG,
+          main = "Density plot of yellow expression (raw)",
+          xlab = "Yellow expression (Ratio_Av_AG)")
+
+# Non-parametric test
+
 sex_test <- wilcox.test(Ratio_Av_AG ~ Sex.f, data = sexdat)
 print(sex_test)
+
+
+# Set order for plotting
 
 sexdat$Condition.f <- factor(
   sexdat$Condition.f,
@@ -65,6 +71,8 @@ sexdat$Condition.f <- factor(
              "FG_F","SO_F","MG_F","HG_F","OV_F","AG_F")
 )
 
+
+# Plotting
 
 p2d_sex <- ggboxplot(
   sexdat,
@@ -82,6 +90,8 @@ p2d_sex <- ggboxplot(
   )
 
 p2d_sex
+mod <- lm(Log_1 ~ Treatment.f * Week, data = my_data)
+anova(mod)
 
 
 ggsave("Fig2D_females_males_boxplot.pdf", p2d_sex, width = 7, height = 5)
@@ -95,21 +105,25 @@ ag$Condition.f <- factor(ag$Condition)
 ag$Replicate.f <- factor(ag$Replicate)
 
 # Set order for plotting
+
 ag$Condition.f <- ordered(ag$Condition.f, levels = c("AG_YF", "AG_OF"))
 
-# Diagnostics
-ag <- ag %>% mutate(logRatio_Av_AG = log10(Ratio_Av_AG + 1))
+# Normality check
+
 shapiro.test(ag$Ratio_Av_AG)
 ggdensity(ag$Ratio_Av_AG,
           main = "Density plot of yellow expression (raw)",
           xlab = "Yellow expression (Ratio_Av_AG)")
 
 
-###t-test
+# t-test
 
-t_res <- t.test(Ratio_Av_AG ~ Condition.f, data = ag)
+t_res <- t.test(Ratio_Av_AG ~ Condition.f, data = ag, var.equal=TRUE)
+
+
 print(t_res)
 
+# Plotting
 
 p2e <- ggboxplot(
   ag,

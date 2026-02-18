@@ -1,0 +1,60 @@
+# Figure 5. Spheres are stored in a novel symbiotic organ prior to release.
+
+# Figure 5G. Yellow gene expression in sphere-storing organs compared to ovary-associated glands in 31-day old females
+
+library(dplyr)
+library("ggpubr")
+library(ggplot2)
+my_data<-read.table("storgan_yell_exp.txt",header=T,row.names=1)
+my_data$Condition.f<-factor(my_data$Condition)
+my_data$Replicate.f<-factor(my_data$Replicate)
+levels(my_data$Condition.f)
+data_log<-mutate(my_data, logRatio_Av_storgan =log10(Ratio_Av_storgan))
+
+# Normality check
+
+
+shapiro.test(data_log$logRatio_Av_storgan) 
+ggdensity(data_log$logRatio_Av_storgan, 
+          main = "Density plot of yellow expression") 
+leveneTest(logRatio_Av_storgan ~ Condition.f, data = data_log)
+
+# t-test
+
+t_res <- t.test(logRatio_Av_storgan ~ Condition.f, data = data_log,var.equal = TRUE )
+print(t_res)
+
+# Plotting
+
+ggboxplot(my_data, x = "Condition.f", y = "Ratio_Av_storgan", ylab = "Relative to AG", xlab = "AG sections") + scale_y_log10() + theme(panel.border = element_rect(color = "black", fill = NA), panel.background = element_blank())
+
+ggsave("Fig5G_Yellow_expression_storgan_AG.pdf", p, width = 5, height = 5)
+ggsave("Fig5G_Yellow_expression_storgan_AG.svg", p, width = 5, height = 5)
+
+
+# Figure 5H. Stammera abundance in symbiont-storing organs of 1-day old versus 31-day old females
+
+my_data<-read.table("sym_titers_storgan.txt",header=T,row.names=1)
+my_data$Condition.f<-factor(my_data$Condition)
+my_data$Replicate.f<-factor(my_data$Replicate)
+data_log<-mutate(my_data, logCopy_number =log10(copy_number))
+
+
+# Normality check
+
+shapiro.test(data_log$logCopy_number) 
+ggdensity(data_log$logCopy_number, 
+          main = "Density plot of yellow expression") 
+leveneTest(logCopy_number ~ Condition.f, data = data_log)
+
+# t-test
+
+t_res <- t.test(logCopy_number ~ Condition.f, data = data_log,var.equal = TRUE )
+print(t_res)
+
+# Plotting    
+
+ggboxplot(my_data, x = "Condition.f", y = "copy_number", ylab = "Symbiont titers", xlab = "AG sections") + scale_y_log10() + theme(panel.border = element_rect(color = "black", fill = NA), panel.background = element_blank())
+
+ggsave("Fig5H_Stammera_abundance_storgan_AG.pdf", p, width = 8, height = 5)
+ggsave("Fig5H_Stammera_abundance_storgan_AG.svg", p, width = 8, height = 5)
