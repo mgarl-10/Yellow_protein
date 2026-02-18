@@ -9,4 +9,3 @@
 
 /code/RepeatModeler-2.0.3/RepeatModeler -database C_alternans -engine ncbi -pa 32 -LTRStruct > C_alternans_run_repeatmodeler.out 
 
-/code/RepeatMasker/RepeatMasker -pa 64 -gff -lib ./RM/consensi.fa.classified C_alternans_genome_cleaned_sorted.fa > repeatmasker.out
