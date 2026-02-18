@@ -1,0 +1,189 @@
+
+# Figure 4. Stammera proliferation in the ovary associated gland is decoupled from Yellow production.
+
+# Figure 4B yellow expression across different ovary-associated gland segments in 1-day old and 31-day old adult females compared to segment 3
+
+
+library(dplyr)
+library(ggpubr)
+library(ggplot2)
+library(tidyverse)
+library(multcomp)
+library(car)
+
+ 
+# Stats per age group 1 day old females #
+
+my_data<-read.table("ag_sections_pairs.txt",header=T,row.names=1)
+d1<-my_data%>%filter(my_data$Age=='1d')
+d1$Section.f<-factor(d1$Section)
+d1$Replicate.f<-factor(d1$Replicate)
+d1_log<-mutate(d1, logRatio_Av_S3= log10(Ratio_Av_S3))
+
+
+# Normality and homoscedasticity check
+
+shapiro.test(d1_log$logRatio_Av_S3)
+ggdensity(d1_log$logRatio_Av_S3, 
+          main = "Density plot of yellow expression",
+          xlab = "Segments AG")
+
+
+# Model
+mod_log <- lm(logRatio_Av_S3 ~ Section.f + Replicate.f, data = d1_log)
+shapiro.test(residuals(mod_log))
+leveneTest(logRatio_Av_S3 ~ Section.f, data = d1_log)
+
+# ANOVA
+
+anova(mod_log)
+
+# Stats per age group 31 day old females #
+
+d31<-my_data%>%filter(my_data$Age=='31d')
+d31$Section.f<-factor(d31$Section)
+d31$Replicate.f<-factor(d31$Replicate)
+d31_sqrt<-mutate(d31, sqrtRatio_Av_S3= sqrt(Ratio_Av_S3))
+
+# Normality and homoscedasticity check
+
+shapiro.test(d31_sqrt$sqrtRatio_Av_S3)
+ggdensity(d31_sqrt$sqrtRatio_Av_S3, 
+          main = "Density plot of yellow expression",
+          xlab = "Segments AG")
+leveneTest(sqrtRatio_Av_S3 ~ Section.f, data = d31_sqrt)
+
+# Model
+
+mod_sqrt <- lm(sqrtRatio_Av_S3 ~ Section.f + Replicate.f, data = d31_sqrt)
+
+# ANOVA
+
+anova(mod_sqrt)
+shapiro.test(residuals(mod_sqrt))
+
+# Posthoc
+
+mod_multcomp_sqrt <- glht(mod_sqrt, linfct = mcp(Section.f = "Tukey"))
+summary(mod_multcomp_sqrt,test=adjusted("bonferroni"))
+
+
+# Boxplots #
+
+
+combined <- bind_rows(d1, d31) %>%
+  mutate(
+    # build the label you want on the x-axis
+    Condition.f = paste0(Section, "_", Age),
+    # force the order you want
+    Condition.f = factor(
+      Condition.f,
+      levels = c("S1_1d","S2_1d","S3_1d","S1_31d","S2_31d","S3_31d")
+    )
+  )
+
+p <- ggboxplot(
+  combined,
+  x = "Condition.f",
+  y = "Ratio_Av_S3",
+  ylab = "Yellow gene expression",
+  xlab = "AG sections"
+) +
+  theme(
+    panel.border = element_rect(color = "black", fill = NA),
+    panel.background = element_blank()
+) +
+  scale_y_log10()
+
+p
+
+ggsave("Fig4B_Yellow_expression_AG_sections_1_31_days.pdf", p, width = 8, height = 5)
+ggsave("Fig4B_Yellow_expression_AG_sections_1_31_days.svg", p, width = 8, height = 5)
+
+
+# Figure 4C Stammera abundance across different ovary-associated gland segments in 1-day old and 31-day old adult females
+
+# Stats per age group 1 day old females #
+
+my_data<-read.table("sym_titers_segments.txt",header=T,row.names=1)
+my_data$Condition.f<-factor(my_data$Condition)
+levels(my_data$Condition.f)
+d1<-my_data%>%filter(my_data$Age=='1d')
+d1$Section.f<-factor(d1$Section)
+d1$Replicate.f<-factor(d1$Replicate)
+d1_boxcox<-mutate(d1, copy_number_boxcox=(d1$copy_number^lambda - 1)/lambda)
+
+# Normality and homoscedasticity check
+
+shapiro.test(d1_boxcox$copy_number_boxcox)
+ggdensity(d1_boxcox$copy_number_boxcox, 
+          main = "Density plot of Stammera abundance",
+          xlab = "Segments AG")
+leveneTest(copy_number_boxcox ~ Section.f, data = d1_boxcox)
+
+# Model
+
+mod_boxcox=lm(copy_number_boxcox~ Condition.f + Replicate.f,d1_boxcox)
+
+# ANOVA
+anova(mod_boxcox)
+
+# Stats per age group 31 days old females #
+
+d31<-my_data%>%filter(my_data$Age=='31d')
+d31$Section.f<-factor(d31$Section)
+d31$Replicate.f<-factor(d31$Replicate)
+d31_boxcox<-mutate(d31, copy_number_boxcox=(d31$copy_number^lambda - 1)/lambda)
+
+# Normality and homoscedasticity check
+
+shapiro.test(d31_boxcox$copy_number_boxcox)
+ggdensity(d31_boxcox$copy_number_boxcox, 
+          main = "Density plot of Stammera abundance",
+          xlab = "Segments AG")
+leveneTest(copy_number_boxcox ~ Section.f, data = d31_boxcox)
+
+# Model
+
+mod_boxcox=lm(copy_number_boxcox~ Condition.f + Replicate.f,d31_boxcox)
+
+# ANOVA
+anova(mod_boxcox)
+
+# Post hoc
+
+mod_multcomp <- glht(mod_boxcox, linfct = mcp(Condition.f = "Tukey"))
+summary(mod_multcomp,test=adjusted("bonferroni"))
+
+# Plotting
+
+combined <- bind_rows(d1, d31) %>%
+  mutate(
+    # build the label you want on the x-axis
+    Condition.f = paste0(Section, "_", Age),
+    # force the order you want
+    Condition.f = factor(
+      Condition.f,
+      levels = c("S1_1d","S2_1d","S3_1d","S1_31d","S2_31d","S3_31d")
+    )
+  )
+
+p <- ggboxplot(
+  combined,
+  x = "Condition.f",
+  y = "copy_number",
+  ylab = "Stammera abundance",
+  xlab = "AG sections"
+) +
+  theme(
+    panel.border = element_rect(color = "black", fill = NA),
+    panel.background = element_blank()
+) +
+  scale_y_log10()
+
+p
+
+
+ggsave("Fig4C_Stammera_abundance_AG_sections_1_31_days.pdf", p, width = 8, height = 5)
+ggsave("Fig4C_Stammera_abundance_AG_sections_1_31_days.svg", p, width = 8, height = 5)
+
