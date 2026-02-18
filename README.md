@@ -85,7 +85,12 @@ bash redun.sh
 
 ---
 
+
 ## 1.2 Decontamination
+
+```bash
+cd genome_assembly/decontamination
+```
 
 ### 1.2.1 Read Mapping
 
@@ -108,7 +113,14 @@ blobtools.sh
 
 ---
 
-## 1.3. Repeat Masking
+## 1.3 Annotation
+
+```bash
+cd genome_assembly/annotation
+```
+
+
+### 1.3.1 Repeat Masking
 
 Repeat annotation and masking were performed prior to gene prediction.
 
@@ -135,7 +147,6 @@ fun.sh
 ```
 
 ---
-
 
 
 # 2. Comparative Transcriptomics
