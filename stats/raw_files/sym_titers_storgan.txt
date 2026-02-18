@@ -1,0 +1,7 @@
+Sample	Condition	Section	Age	Replicate	copy_number	Log
+Storgan-1d-R1	St_1d	St	1d	R1	156.69	2.195034868
+Storgan-1d-R2	St_1d	St	1d	R2	42.87	1.6322015
+Storgan-1d-R3	St_1d	St	1d	R3	316.49	2.500364844
+Storgan-31d-R1	St_31d	St	31d	R1	17027510.48	7.231151156
+Storgan-31d-R2	St_31d	St	31d	R2	116204883.73	8.06522438
+Storgan-31d-R3	St_31d	St	31d	R3	15207614.96	7.182061108

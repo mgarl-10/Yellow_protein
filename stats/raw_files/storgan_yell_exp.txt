@@ -1,0 +1,7 @@
+Sample	Condition	Replicate	Ratio_Av_storgan
+R1_AG	AG	R1	80.12
+R2_AG	AG	R2	104.89
+R3_AG	AG	R3	90.85
+R1_storgan	storgan	R1	2.95
+R2_storgan	storgan	R2	0.01
+R3_storgan	storgan	R3	0.04
