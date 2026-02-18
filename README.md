@@ -12,14 +12,15 @@ García-Lozano M, Emmerich C, Henzler C, Koch I, Lanz C, Ayas A, Pons I, Buttste
 
 The analyses include:
 
-1. **Comparative transcriptomic analysis** of *Chelymorpha alternans*
-2. **Phylogenetic reconstruction** of Yellow protein family genes
-3. **Ovary-associated gland transcriptome analysis** for additional Cassidinae species
-4. **Co-phylogenetic analysis** between Yellow proteins and *Stammera* symbionts
-5. **Positive selection analysis** of Yellow proteins
-6. **AlphaFold structural modeling and structural comparison**
-7. **Symbiont Transcriptome Response** Under Low Humidity Conditions
-8. **Statistical analyses and figure generation**
+1. **Genome assembly** for _Chelymorpha alternans_
+2. **Comparative transcriptomic analysis** of *Chelymorpha alternans*
+3. **Phylogenetic reconstruction** of Yellow protein family genes
+4. **Ovary-associated gland transcriptome analysis** for additional Cassidinae species
+5. **Co-phylogenetic analysis** between Yellow proteins and *Stammera* symbionts
+6. **Positive selection analysis** of Yellow proteins
+7. **AlphaFold structural modeling and structural comparison**
+8. **Symbiont Transcriptome Response** Under Low Humidity Conditions
+9. **Statistical analyses and figure generation**
 
 ---
 
@@ -28,6 +29,10 @@ The analyses include:
 Most of the analyses were performed on a Linux HPC cluster using `qsub`.
 
 Core tools:
+- Hifiasm
+- Redundans
+- Repeatmasker
+- Funannotate
 - Trimmomatic
 - HISAT2
 - SAMtools
@@ -50,6 +55,22 @@ Core tools:
 - Bowtie
 - featureCounts
 - R
+
+# 1. Genome assembly for _Chelymorpha alternans_
+
+1. Assembly
+
+  Hifiasm + Redundans
+
+2. Decontamination
+
+blobtools
+
+3. Repeatmasking
+
+
+4. Funannotate
+
 
 
 # 1. Comparative Transcriptomics
