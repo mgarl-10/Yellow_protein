@@ -109,6 +109,7 @@ anova(lm_model_5_condition_replicate)
 # post hoc 
 
 mod_multcomp_lm_model_5_condition_replicate <- glht(lm_model_5_condition_replicate, linfct = mcp(Condition.f = "Tukey"))
+
 summary(mod_multcomp_lm_model_5_condition_replicate,test=adjusted("bonferroni"))
 
 
@@ -137,8 +138,8 @@ p <- ggboxplot(
 p
 
 
-ggsave("Fig6A_qPCR_RNAi_boxplot.pdf", p, width = 10, height = 4)
-ggsave("Fig6A_qPCR_RNAi_boxplot.svg", p, width = 10, height = 4)
+ggsave("Fig6A_qPCR_RNAi_boxplot.pdf", p)
+ggsave("Fig6A_qPCR_RNAi_boxplot.svg", p)
 
 
 # NOTE:
