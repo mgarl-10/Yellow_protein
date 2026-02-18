@@ -6,6 +6,7 @@ library(dplyr)
 library(ggpubr)
 library(multcomp)
 library(tibble)
+library(ggplot2)
 
 
 
@@ -173,5 +174,6 @@ anova(mod_global)
 # Post hoc: pairwise Treatment contrasts within each Week (Bonferroni)
 emm <- emmeans(mod_global, ~ Treatment | Week)
 pairs(emm, adjust = "bonferroni")
+
 
 
