@@ -26,10 +26,10 @@ print(t_res)
 
 # Plotting
 
-ggboxplot(my_data, x = "Condition.f", y = "Ratio_Av_storgan", ylab = "Relative to AG", xlab = "AG sections") + scale_y_log10() + theme(panel.border = element_rect(color = "black", fill = NA), panel.background = element_blank())
+p<-ggboxplot(my_data, x = "Condition.f", y = "Ratio_Av_storgan", ylab = "Relative to AG", xlab = "AG sections") + scale_y_log10() + theme(panel.border = element_rect(color = "black", fill = NA), panel.background = element_blank())
 
-ggsave("Fig5G_Yellow_expression_storgan_AG.pdf", p, width = 5, height = 5)
-ggsave("Fig5G_Yellow_expression_storgan_AG.svg", p, width = 5, height = 5)
+ggsave("Fig5G_Yellow_expression_storgan_AG.pdf", p)
+ggsave("Fig5G_Yellow_expression_storgan_AG.svg", p)
 
 
 # Figure 5H. Stammera abundance in symbiont-storing organs of 1-day old versus 31-day old females
@@ -54,7 +54,8 @@ print(t_res)
 
 # Plotting    
 
-ggboxplot(my_data, x = "Condition.f", y = "copy_number", ylab = "Symbiont titers", xlab = "AG sections") + scale_y_log10() + theme(panel.border = element_rect(color = "black", fill = NA), panel.background = element_blank())
 
-ggsave("Fig5H_Stammera_abundance_storgan_AG.pdf", p, width = 8, height = 5)
-ggsave("Fig5H_Stammera_abundance_storgan_AG.svg", p, width = 8, height = 5)
+p <-ggboxplot(my_data, x = "Condition.f", y = "copy_number", ylab = "Symbiont titers", xlab = "AG sections") + scale_y_log10() + theme(panel.border = element_rect(color = "black", fill = NA), panel.background = element_blank())
+
+ggsave("Fig5H_Stammera_abundance_storgan_AG.pdf", p)
+ggsave("Fig5H_Stammera_abundance_storgan_AG.svg", p)
