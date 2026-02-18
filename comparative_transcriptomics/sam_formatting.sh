@@ -10,4 +10,5 @@ for sam in *.sam; do
 
     samtools view -b "$sam" | \
     samtools sort -o "${sample}_sorted.bam"
+    samtools index "${sample}_sorted.bam"
 done
