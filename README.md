@@ -56,24 +56,96 @@ Core tools:
 - featureCounts
 - R
 
-# 1. Genome assembly for _Chelymorpha alternans_
+# 1. Genome Assembly for *Chelymorpha alternans*
 
-1. Assembly
+Navigate to the genome assembly directory:
 
-  Hifiasm + Redundans
+```bash
+cd genome_assembly
+```
 
-2. Decontamination
+---
 
-blobtools
+## 1.1 Assembly
 
-3. Repeatmasking
+### 1.1.1 Primary Assembly (HiFi reads)
+
+Genome assembly was performed using Hifiasm followed by redundancy reduction with Redundans.
+
+```bash
+bash hifiasm.sh
+bash redun.sh
+```
+
+---
+
+## 1.2 Decontamination
+
+### 1.2.1 Read Mapping
+
+Reads were mapped back to the assembly using BWA-MEM.
+
+```bash
+mapping.sh
+```
+
+---
+
+### 2.2 Contamination Screening
+
+Taxonomic screening and decontamination were performed using BLASTn and BlobTools.
+
+```bash
+blast.sh
+blobtools.sh
+```
+
+---
+
+## 1.3. Repeat Masking
+
+Repeat annotation and masking were performed prior to gene prediction.
+
+```bash
+repeatmasker.sh
+```
+
+---
+
+## 1.4. Gene Prediction
+
+### 1.4.1 GeneMark
+
+```bash
+genemark.sh
+```
+
+### 1.4.2 Funannotate
+
+Structural and functional annotation were conducted using Funannotate.
+
+```bash
+fun.sh
+```
+
+---
+
+## Software Used
+
+- Hifiasm  
+- Redundans  
+- BWA  
+- Samtools  
+- BLAST+  
+- BlobTools  
+- RepeatModeler  
+- RepeatMasker  
+- GeneMark  
+- Funannotate  
 
 
-4. Funannotate
 
-
-
-# 1. Comparative Transcriptomics
+# 2. Comparative Transcriptomics
 
 Navigate to the transcriptomics analysis directory:
 
@@ -102,7 +174,7 @@ The workflow generates:
 - Differential expression results table
 - Volcano plot
 
-## 1.1 Quality Control
+## 2.1 Quality Control
 
 ### Adapter removal and quality trimming
 
@@ -117,7 +189,7 @@ This step:
 
 ---
 
-## 1.2 Mapping to Reference Genome
+## 2.2 Mapping to Reference Genome
 
 ### Step 1: Index the reference genome
 
@@ -148,7 +220,7 @@ This step:
 
 ---
 
-## 1.3 Quantification of Mapped Reads
+## 2.3 Quantification of Mapped Reads
 
 ```bash
 qsub htseq_exon.sh
@@ -160,7 +232,7 @@ This step:
 
 ---
 
-## 1.4 Differential Gene Expression Analysis
+## 2.4 Differential Gene Expression Analysis
 
 ```bash
 Rscript DESeq2.R
@@ -174,7 +246,7 @@ This script:
 
 ---
 
-# 2. Phylogenetic Analysis of Yellow Proteins
+# 3. Phylogenetic Analysis of Yellow Proteins
 
 Navigate to the phylogenetic analysis directory:
 
@@ -184,7 +256,7 @@ cd phylogenies/Yellow_protein_tree
 
 ---
 
-## 2.1 Sequence Renaming
+## 3.1 Sequence Renaming
 
 To standardize FASTA headers and retain species names, sequences were renamed using:
 
@@ -199,7 +271,7 @@ This step ensures consistent species naming across downstream analyses.
 
 ---
 
-## 2.2 Multiple Sequence Alignment
+## 3.2 Multiple Sequence Alignment
 
 Sequences listed in the fasta IDs.csv file and Drosophila sequences obtained from NCBI were aligned using MAFFT:
 
@@ -211,7 +283,7 @@ mafft --auto yellow_filtered_coleopt_hymenopt_chely_bact_Drosophila_renamed.fast
 
 ---
 
-## 2.3 Model Selection
+## 3.3 Model Selection
 
 The best-fit amino acid substitution model was determined using ModelTest:
 
@@ -225,7 +297,7 @@ This step:
 
 ---
 
-## 2.4 Phylogenetic Tree Construction
+## 3.4 Phylogenetic Tree Construction
 
 Phylogenetic reconstruction was performed using RAxML:
 
@@ -240,7 +312,7 @@ This step:
 
 ---
 
-# 3. Ovary-Associated Gland Transcriptome Analysis for Additional Cassidinae Species
+# 4. Ovary-Associated Gland Transcriptome Analysis for Additional Cassidinae Species
 
 Navigate to the analysis directory:
 
@@ -271,7 +343,7 @@ This workflow generates:
 
 ---
 
-## 3.1 Quality Control
+## 4.1 Quality Control
 
 ### Adapter Removal and Quality Trimming
 
@@ -283,7 +355,7 @@ This step removes adapter contamination and low-quality bases.
 
 ---
 
-## 3.2 De Novo Transcriptome Assembly (Trinity)
+## 4.2 De Novo Transcriptome Assembly (Trinity)
 
 ```bash
 qsub trinity.sh
@@ -295,7 +367,7 @@ This step:
 
 ---
 
-## 3.3 Assembly Quality Assessment (BUSCO)
+## 4.3 Assembly Quality Assessment (BUSCO)
 
 ```bash
 qsub busco.sh
@@ -306,7 +378,7 @@ This step:
 
 ---
 
-## 3.4 Transcript Abundance Estimation (RSEM)
+## 4.4 Transcript Abundance Estimation (RSEM)
 
 ```bash
 qsub trinity_misc.sh
@@ -318,7 +390,7 @@ This step:
 
 ---
 
-## 3.5 Protein-Coding Gene Prediction (TransDecoder)
+## 4.5 Protein-Coding Gene Prediction (TransDecoder)
 
 ```bash
 qsub transdecoder.sh
@@ -328,7 +400,7 @@ This step:
 - Identifies candidate coding regions
 - Predicts protein sequences from assembled transcripts
 
-# 4. Co-phylogenetic Analysis Between Yellow Proteins and *Stammera* Symbionts
+# 5. Co-phylogenetic Analysis Between Yellow Proteins and *Stammera* Symbionts
 
 This section describes the reconstruction of host and symbiont phylogenies for co-phylogenetic comparison.
 
@@ -340,7 +412,7 @@ cd phylogenies/Yellow_protein_Cassidinae
 
 ---
 
-## 4.1 Host Phylogeny: Cassidinae Species (7 Species + 1 Outgroup)
+## 5.1 Host Phylogeny: Cassidinae Species (7 Species + 1 Outgroup)
 
 Phylogenetic reconstruction was performed using protein sequences from seven Cassidinae species and one outgroup species. 
 
@@ -375,7 +447,7 @@ qsub raxml.sh
 
 ---
 
-## 4.2 *Stammera* Symbiont Phylogeny 
+## 5.2 *Stammera* Symbiont Phylogeny 
 
 Phylogenetic reconstruction of *Stammera* symbionts was conducted using core gene sequences and corresponding outgroups.
 
@@ -443,12 +515,12 @@ qsub raxml.sh
 
 ---
 
-## 4.3 Co-phylogenetic Comparison
+## 5.3 Co-phylogenetic Comparison
 
 The resulting trees were visualized side-by-side in Dendroscope3 as a tanglegram using the Neighbor Net Tanglegram algorithm. Cophylogenetic congruence between yellow genes and _Stammera_ symbionts was assessed using eMPRess GUI. 
 
 
-# 5 Positive selection analysis for Yellow proteins
+# 6 Positive selection analysis for Yellow proteins
 
 This section describes the detection of selection signatures in Yellow protein-coding genes.
 
@@ -460,7 +532,7 @@ cd positive_selection
 
 ---
 
-## 5.1 Sequence Retrieval
+## 6.1 Sequence Retrieval
 
 Protein and corresponding coding sequences (CDS) were obtained from Trinity assemblies using TransDecoder (see Section 3.5).
 
@@ -471,7 +543,7 @@ Outputs used:
 
 ---
 
-## 5.2 Protein Alignment
+## 6.2 Protein Alignment
 
 Protein sequences were aligned using MUSCLE:
 
@@ -483,7 +555,7 @@ This step generates amino acid alignments for downstream codon-aware alignment.
 
 ---
 
-## 5.3 Codon-Aware Alignment
+## 6.3 Codon-Aware Alignment
 
 Codon-aware nucleotide alignments were generated using PAL2NAL:
 
@@ -498,7 +570,7 @@ This step:
 
 ---
 
-## 5.4 Detection of Positive Selection
+## 6.4 Detection of Positive Selection
 
 Positive selection was tested using the **FEL (Fixed Effects Likelihood)** method implemented in Datamonkey (HyPhy framework).
 
@@ -508,13 +580,13 @@ Steps:
 3. Use the corresponding maximum likelihood phylogenetic tree.
 4. Identify sites under selection based on statistical significance (p-value threshold).
 
-# 6. AlphaFold Structural Modeling and Structural Comparison
+# 7. AlphaFold Structural Modeling and Structural Comparison
 
 This section describes structural prediction and comparative analysis of Yellow proteins across seven Cassidinae species.
 
 ---
 
-## 6.1 Structure Prediction
+## 7.1 Structure Prediction
 
 Predicted protein structures were generated using the AlphaFold Server (AlphaFold 3).
 
@@ -527,7 +599,7 @@ cd pymol
 
 ---
 
-## 6.2 Structural Alignment in PyMOL
+## 7.2 Structural Alignment in PyMOL
 
 The predicted structures were imported into PyMOL for structural comparison.
 
@@ -546,7 +618,7 @@ align model_5, model_7
 
 ---
 
-## 6.3 Per-Residue RMSD Calculation
+## 7.3 Per-Residue RMSD Calculation
 
 A custom PyMOL script (`pymol_aln.py`) was used to calculate per-residue RMSD values by measuring distances between Cα atoms across aligned models.
 
@@ -577,7 +649,7 @@ cartoon oval
 
 ---
 
-## 6.4 Model Confidence (pLDDT) Analysis
+## 7.4 Model Confidence (pLDDT) Analysis
 
 Model confidence scores (pLDDT) were extracted from AlphaFold predictions and summarized by exon region.
 
@@ -595,7 +667,7 @@ python extract_plddt_with_regions.py
 
 ---
 
-## 6.5 Mapping Functional and Evolutionary Sites
+## 7.5 Mapping Functional and Evolutionary Sites
 
 ### Hydrophobic Residues
 
@@ -635,7 +707,7 @@ color red, pos_sites
 
 ---
 
-## 6.6 Model Confidence Visualization (pLDDT)
+## 7.6 Model Confidence Visualization (pLDDT)
 
 AlphaFold confidence scores (pLDDT), stored in the B-factor field of the predicted structures, were visualized in PyMOL using the standard AlphaFold color scheme (blue = high confidence).
 
@@ -653,7 +725,7 @@ Color interpretation:
 - **Orange/Red**: very low confidence (< 50)
 
 
-# 7. Symbiont Transcriptome Response Under Low Humidity Conditions
+# 8. Symbiont Transcriptome Response Under Low Humidity Conditions
 
 This workflow processes *Stammera* symbiont RNA-seq data to quantify gene expression and assess differential transcriptional responses under low humidity conditions.
 
@@ -665,7 +737,7 @@ cd symbiont_transcriptomics
 
 ---
 
-## 7.1 Input Files
+## 8.1 Input Files
 
 The following files are required:
 
@@ -677,7 +749,7 @@ The following files are required:
 
 ---
 
-## 7.2 Output Files
+## 8.2 Output Files
 
 This workflow generates:
 
@@ -690,7 +762,7 @@ This workflow generates:
 
 ---
 
-## 7.3 Quality Control
+## 8.3 Quality Control
 
 ### Adapter removal and quality trimming
 
@@ -701,7 +773,7 @@ qsub trim.sh
 
 ---
 
-## 7.4 Mapping to Reference Genome
+## 8.4 Mapping to Reference Genome
 
 ### Step 1: Index the reference genome
 
@@ -721,7 +793,7 @@ This step:
 
 ---
 
-## 7.5 Quantification of Mapped Reads
+## 8.5 Quantification of Mapped Reads
 
 ```bash
 qsub featurecounts.sh
@@ -733,7 +805,7 @@ This step:
 
 ---
 
-## 7.6 Differential Gene Expression Analysis
+## 8.6 Differential Gene Expression Analysis
 
 ```bash
 Rscript DESeq_script_Stammera.R
@@ -746,8 +818,11 @@ This script:
 - Generates volcano plots for each treatment comparison
 - Generates a heatmap with annotations for the Yellow condition
 
-# 8. Statistical analyses and figure generation
+# 9. Statistical analyses and figure generation
 
+```bash
+cd stats
+```
 
 R scripts for stats and plots for Figure 2, 3, 4, 5, 6, 7, and S8.
 
@@ -758,4 +833,7 @@ R scripts for stats and plots for Figure 2, 3, 4, 5, 6, 7, and S8.
 - Stats_Fig_6
 - Stats_Fig_7
 - Stats_Fig_S8
-  
+
+Raw files to run these scripts are located in /stats/raw_files/
+
+
