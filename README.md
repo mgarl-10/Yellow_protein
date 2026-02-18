@@ -12,15 +12,15 @@ García-Lozano M, Emmerich C, Henzler C, Koch I, Lanz C, Ayas A, Pons I, Buttste
 
 The analyses include:
 
-1. **Genome assembly** for _Chelymorpha alternans_
-2. **Comparative transcriptomic analysis** of *Chelymorpha alternans*
-3. **Phylogenetic reconstruction** of Yellow protein family genes
-4. **Ovary-associated gland transcriptome analysis** for additional Cassidinae species
-5. **Co-phylogenetic analysis** between Yellow proteins and *Stammera* symbionts
-6. **Positive selection analysis** of Yellow proteins
-7. **AlphaFold structural modeling and structural comparison**
-8. **Symbiont Transcriptome Response** Under Low Humidity Conditions
-9. **Statistical analyses and figure generation**
+1. **Genome assembly, decontamination, and annotation** for _Chelymorpha alternans_
+4. **Comparative transcriptomic analysis** of *Chelymorpha alternans*
+5. **Phylogenetic reconstruction** of Yellow protein family genes
+6. **Ovary-associated gland transcriptome analysis** for additional Cassidinae species
+7. **Co-phylogenetic analysis** between Yellow proteins and *Stammera* symbionts
+8. **Positive selection analysis** of Yellow proteins
+9. **AlphaFold structural modeling and structural comparison**
+10. **Symbiont Transcriptome Response** Under Low Humidity Conditions
+11. **Statistical analyses and figure generation**
 
 ---
 
@@ -31,7 +31,13 @@ Most of the analyses were performed on a Linux HPC cluster using `qsub`.
 Core tools:
 - Hifiasm
 - Redundans
-- Repeatmasker
+- BWA  
+- Samtools  
+- BLAST+  
+- BlobTools  
+- RepeatModeler  
+- RepeatMasker  
+- GeneMark  
 - Funannotate
 - Trimmomatic
 - HISAT2
@@ -129,19 +135,6 @@ fun.sh
 ```
 
 ---
-
-## Software Used
-
-- Hifiasm  
-- Redundans  
-- BWA  
-- Samtools  
-- BLAST+  
-- BlobTools  
-- RepeatModeler  
-- RepeatMasker  
-- GeneMark  
-- Funannotate  
 
 
 
