@@ -1,13 +1,9 @@
 
 library("DESeq2")
-library(vegan)
-library(pairwiseAdonis)
-library(RVAideMemoire)
-library(bbcRNA)
-library("pheatmap")
 library(ltc)
 library("RColorBrewer")
 library("EnhancedVolcano")
+library(ggplot2)
 
 
 #Transcriptome normalization
@@ -29,45 +25,63 @@ res <- res[order(res$padj),]
 head(res)
 write.csv( as.data.frame(res), file="Adult_FG_Adult_OV.csv")
 
-
-Adult_OV_Adult_FG<-results(dds, contrast=c("Treatment","Adult_OV","Adult_FG"))
-
-
-#########green#############
-# Load required libraries
-library(DESeq2)        
-library(EnhancedVolcano)
-
-Adult_OV_Adult_FG <- results(dds, contrast = c("Treatment", "Adult_OV", "Adult_FG"))
+Adult_OV_Adult_FG <- results(dds, contrast = c("Treatment","Adult_OV","Adult_FG"))
 Adult_OV_Adult_FG <- na.omit(Adult_OV_Adult_FG)
 
-green_color <- rgb(5, 143, 77, maxColorValue = 255)
+
+# Volcano plot
+
+green_color  <- rgb(5, 143, 77,  maxColorValue = 255)
 yellow_color <- rgb(247, 182, 39, maxColorValue = 255)
+darker_yellow <- rgb(191, 144, 0,  maxColorValue = 255)
 
-color_vector <- ifelse(rownames(Adult_OV_Adult_FG) == 'FUN_023368-T1', yellow_color, green_color)
 
-EnhancedVolcano(Adult_OV_Adult_FG,
-   lab = rownames(Adult_OV_Adult_FG),
-   x = 'log2FoldChange',
-   y = 'padj',
-   selectLab = c('FUN_023368-T1'), 
-   pCutoff = 5e-2,
-   FCcutoff = 2.0,
-   pointSize = 4,
-   labSize = 2,
-   labCol = 'black',
-   labFace = 'bold',
-   boxedLabels = TRUE,
-   colAlpha = 4/5,
-   legendPosition = 'none',  
-   drawConnectors = TRUE,
-   widthConnectors = 1.0,
-   colConnectors = 'black',
-   gridlines.major = FALSE, 
-   gridlines.minor = FALSE,  
-   col = color_vector,       
-   xlab = expression(Log[2]~ 'fold change'), 
-   ylab = expression(-Log[10]~ 'p-value'),  
-   title = NULL            
+gene <- "FUN_023368-T1"
+
+p <- EnhancedVolcano(
+  Adult_OV_Adult_FG,
+  lab = rownames(Adult_OV_Adult_FG),
+  x = "log2FoldChange",
+  y = "padj",
+  selectLab = gene,
+  pCutoff = 5e-2,
+  FCcutoff = 2.0,
+  pointSize = 5,
+  labSize = 2,
+  labCol = "black",
+  labFace = "bold",
+  boxedLabels = TRUE,
+  legendPosition = "none",
+  drawConnectors = TRUE,
+  widthConnectors = 1,
+  colConnectors = "black",
+  gridlines.major = FALSE,
+  gridlines.minor = FALSE,
+  cutoffLineType = 'dashed',
+  cutoffLineWidth = 0.6,
+  col = c("grey70", green_color, "grey70", green_color),
+  title = NULL,
+  subtitle = NULL,
+  caption = NULL
 )
 
+df <- as.data.frame(Adult_OV_Adult_FG)
+df$gene <- rownames(df)
+
+p +
+  geom_point(
+    data = df[df$gene == gene, ],
+    aes(x = log2FoldChange, y = -log10(padj)),
+    inherit.aes = FALSE,
+    shape = 21,                
+    fill = yellow_color,       
+    color = darker_yellow,     
+    size = 6,
+    stroke = 1.2               
+  ) +
+  theme(
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 1),
+    axis.line = element_line(color = "black", linewidth = 0.8),
+    axis.ticks = element_line(color = "black"),
+    plot.title = element_text(color = "black")
+  )
