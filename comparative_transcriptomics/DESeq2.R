@@ -31,6 +31,10 @@ Adult_OV_Adult_FG <- na.omit(Adult_OV_Adult_FG)
 
 # Volcano plot
 
+
+Figure 1J. Volcano plot showing differential gene expression between foregut symbiotic organs and ovary-associated glands, analysed via DESeq2.
+
+
 green_color  <- rgb(5, 143, 77,  maxColorValue = 255)
 yellow_color <- rgb(247, 182, 39, maxColorValue = 255)
 darker_yellow <- rgb(191, 144, 0,  maxColorValue = 255)
@@ -85,3 +89,7 @@ p +
     axis.ticks = element_line(color = "black"),
     plot.title = element_text(color = "black")
   )
+
+
+ggsave("Fig1J_volcano_plot.pdf", p)
+ggsave("Fig1J_volcano_plot.svg", p)
