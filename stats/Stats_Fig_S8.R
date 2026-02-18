@@ -35,15 +35,15 @@ ctl_bar <- ggplot(ctl, aes(x = Condition, y = Count, fill = Direction)) +
   )
 
 
-ggsave("FigS8_barplot_ctl.pdf", p, width = 5, height = 5)
-ggsave("FigS8_barplot_ctl.svg", p, width = 5, height = 5)
+ggsave("FigS8_barplot_ctl.pdf", ctl_bar)
+ggsave("FigS8_barplot_ctl.svg", ctl_bar)
 
 
 # Plotting GFP
 
 gfp<-deg_counts %>% filter(Condition == "GFP")
 
-ctl_bar <- ggplot(gfp, aes(x = Condition, y = Count, fill = Direction)) +
+gfp_bar <- ggplot(gfp, aes(x = Condition, y = Count, fill = Direction)) +
   geom_bar(stat = "identity", position = "dodge") +
   scale_fill_manual(
     values = c(
@@ -62,8 +62,8 @@ ctl_bar <- ggplot(gfp, aes(x = Condition, y = Count, fill = Direction)) +
   )
 
 
-ggsave("FigS8_barplot_gfp.pdf", p, width = 5, height = 5)
-ggsave("FigS8_barplot_gfp.svg", p, width = 5, height = 5)
+ggsave("FigS8_barplot_gfp.pdf", gfp_bar)
+ggsave("FigS8_barplot_gfp.svg",gfp_bar)
 
 
 
@@ -72,7 +72,7 @@ ggsave("FigS8_barplot_gfp.svg", p, width = 5, height = 5)
 
 yell<-deg_counts %>% filter(Condition == "YELL")
 
-ctl_bar <- ggplot(yell, aes(x = Condition, y = Count, fill = Direction)) +
+yell_bar <- ggplot(yell, aes(x = Condition, y = Count, fill = Direction)) +
   geom_bar(stat = "identity", position = "dodge") +
   scale_fill_manual(
     values = c(
@@ -91,8 +91,8 @@ ctl_bar <- ggplot(yell, aes(x = Condition, y = Count, fill = Direction)) +
   )
 
 
-ggsave("FigS8_barplot_yell.pdf", p, width = 5, height = 5)
-ggsave("FigS8_barplot_yell.svg", p, width = 5, height = 5)
+ggsave("FigS8_barplot_yell.pdf", yell_bar)
+ggsave("FigS8_barplot_yell.svg", yell_bar)
 
 
 # Fisher exact test 
