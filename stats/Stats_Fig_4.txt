@@ -97,8 +97,8 @@ p <- ggboxplot(
 
 p
 
-ggsave("Fig4B_Yellow_expression_AG_sections_1_31_days.pdf", p, width = 8, height = 5)
-ggsave("Fig4B_Yellow_expression_AG_sections_1_31_days.svg", p, width = 8, height = 5)
+ggsave("Fig4B_Yellow_expression_AG_sections_1_31_days.pdf", p)
+ggsave("Fig4B_Yellow_expression_AG_sections_1_31_days.svg", p)
 
 
 # Figure 4C Stammera abundance across different ovary-associated gland segments in 1-day old and 31-day old adult females
@@ -153,6 +153,7 @@ anova(mod_boxcox)
 # Post hoc
 
 mod_multcomp <- glht(mod_boxcox, linfct = mcp(Condition.f = "Tukey"))
+
 summary(mod_multcomp,test=adjusted("bonferroni"))
 
 # Plotting
@@ -184,6 +185,6 @@ p <- ggboxplot(
 p
 
 
-ggsave("Fig4C_Stammera_abundance_AG_sections_1_31_days.pdf", p, width = 8, height = 5)
-ggsave("Fig4C_Stammera_abundance_AG_sections_1_31_days.svg", p, width = 8, height = 5)
+ggsave("Fig4C_Stammera_abundance_AG_sections_1_31_days.pdf", p)
+ggsave("Fig4C_Stammera_abundance_AG_sections_1_31_days.svg", p)
 
