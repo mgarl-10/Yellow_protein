@@ -19,7 +19,7 @@ The analyses include:
 5. **Co-phylogenetic analysis** between Yellow proteins and *Stammera* symbionts
 6. **Positive selection analysis** of Yellow proteins
 7. **AlphaFold structural modeling and structural comparison**
-8. **Symbiont Transcriptome Response** Under Low Humidity Conditions
+8. **Symbiont transcriptome response** under low humidity conditions
 9. **Statistical analyses and figure generation**
 
 ---
