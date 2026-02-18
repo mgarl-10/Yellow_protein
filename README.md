@@ -65,7 +65,6 @@ Core tools:
 
 # 1. Genome Assembly for *Chelymorpha alternans*
 
-Navigate to the genome assembly directory:
 
 ```bash
 cd genome_assembly
@@ -224,7 +223,7 @@ funannotate mask \
 -m repeatmasker \
 -l ./RM_XXXX/consensi.fa.classified \
 --cpus 64 \
--o C_alternans_genome_masked.fa
+-o C_alternans_assembly.fa
 ```
 
 **Input:**
@@ -232,11 +231,10 @@ funannotate mask \
 - Custom repeat library (`consensi.fa.classified`)
 
 **Output:**
-- Soft-masked genome assembly (`C_alternans_genome_masked.fa`)
+- Soft-masked genome assembly (`C_alternans_assembly.fa`)
 - Repeat annotation files
 
 ---
-
 
 
 ## 1.4 Gene Prediction
@@ -279,7 +277,6 @@ bash fun.sh
 
 # 2. Comparative Transcriptomics
 
-Navigate to the transcriptomics analysis directory:
 
 ```bash
 cd comparative_transcriptomics
@@ -380,7 +377,6 @@ This script:
 
 # 3. Phylogenetic Analysis of Yellow Proteins
 
-Navigate to the phylogenetic analysis directory:
 
 ```bash
 cd phylogenies/Yellow_protein_tree
@@ -446,7 +442,6 @@ This step:
 
 # 4. Ovary-Associated Gland Transcriptome Analysis for Additional Cassidinae Species
 
-Navigate to the analysis directory:
 
 ```bash
 cd AG_transcriptomes
@@ -536,7 +531,6 @@ This step:
 
 This section describes the reconstruction of host and symbiont phylogenies for co-phylogenetic comparison.
 
-Navigate to the analysis directory:
 
 ```bash
 cd phylogenies/Yellow_protein_Cassidinae
@@ -583,7 +577,6 @@ qsub raxml.sh
 
 Phylogenetic reconstruction of *Stammera* symbionts was conducted using core gene sequences and corresponding outgroups.
 
-Navigate to the analysis directory:
 
 ```bash
 cd phylogenies/Stammera_phylogeny
@@ -656,7 +649,6 @@ The resulting trees were visualized side-by-side in Dendroscope3 as a tanglegram
 
 This section describes the detection of selection signatures in Yellow protein-coding genes.
 
-Navigate to the analysis directory:
 
 ```bash
 cd positive_selection
@@ -861,7 +853,6 @@ Color interpretation:
 
 This workflow processes *Stammera* symbiont RNA-seq data to quantify gene expression and assess differential transcriptional responses under low humidity conditions.
 
-Navigate to the analysis directory:
 
 ```bash
 cd symbiont_transcriptomics
