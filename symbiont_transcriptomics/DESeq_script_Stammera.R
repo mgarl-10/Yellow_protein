@@ -59,8 +59,8 @@ p_yell + theme(
   panel.background = element_blank()
 )
 
-ggsave("Fig7D_yellow_volcano_plot.pdf", p_yell, width = 5, height = 5)
-ggsave("Fig7D_yellow_volcano_plot.svg", p_yell, width = 5, height = 5)
+ggsave("Fig7D_yellow_volcano_plot.pdf", p_yell)
+ggsave("Fig7D_yellow_volcano_plot.svg", p_yell)
 
 # GFP
 
@@ -105,8 +105,8 @@ p_gfp + theme(
   panel.background = element_blank()
 )
 
-ggsave("Fig7D_GFP_volcano_plot.pdf", p_gfp, width = 5, height = 5)
-ggsave("Fig7D_GFP_volcano_plot.svg", p_gfp, width = 5, height = 5)
+ggsave("Fig7D_GFP_volcano_plot.pdf", p_gfp)
+ggsave("Fig7D_GFP_volcano_plot.svg", p_gfp)
 
 
 ##############CTL UNT and  CTL HUM ########################
