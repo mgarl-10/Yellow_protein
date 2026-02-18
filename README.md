@@ -1,4 +1,4 @@
-# Bioinformatics Workflows and Statistical Analyses
+# Bioinformatics workflows and statistical analyses
 
 This repository contains the computational and statistical analyses supporting:
 
