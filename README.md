@@ -12,7 +12,7 @@ García-Lozano M, Emmerich C, Henzler C, Koch I, Lanz C, Ayas A, Pons I, Buttste
 
 The analyses include:
 
-1. **Genome assembly, decontamination, and annotation** for _Chelymorpha alternans_
+1. **Assembly, decontamination, and annotation** for _Chelymorpha alternans_ genome
 2. **Comparative transcriptomic analysis** of *Chelymorpha alternans*
 3. **Phylogenetic reconstruction** of Yellow protein family genes
 4. **Ovary-associated gland transcriptome analysis** for additional Cassidinae species
