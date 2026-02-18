@@ -188,11 +188,7 @@ Repeat annotation was performed using **RepeatModeler v2.0.3** to build a specie
 #### 1.3.2.1 Build RepeatModeler Database
 
 ```bash
-/code/RepeatModeler-2.0.3/BuildDatabase \
--name C_alternans \
--engine ncbi \
-C_alternans_genome_cleaned_sorted.fa \
-> database_build_C_alternans_run.out
+repeatmodeler.sh
 ```
 
 **Input:**
@@ -206,12 +202,7 @@ C_alternans_genome_cleaned_sorted.fa \
 #### 1.3.2.2 De Novo Repeat Identification
 
 ```bash
-/code/RepeatModeler-2.0.3/RepeatModeler \
--database C_alternans \
--engine ncbi \
--pa 32 \
--LTRStruct \
-> C_alternans_run_repeatmodeler.out
+repeatmodeler.sh
 ```
 
 **Input:**
@@ -278,67 +269,13 @@ bash fun.sh
 **Input:**
 - Repeat-masked genome assembly
 - GeneMark predictions
-- Optional: transcript or protein evidence
+- Optional: RNAseq evidence
 
 **Output:**
 - Final annotated gene models (GFF3)
 - Predicted proteins (FAA)
 - Coding sequences (FNA)
 - Functional annotations (InterPro, Pfam, GO terms)
-
-
-## 1.4 Gene Prediction
-
-### 1.4.1 GeneMark
-
-Ab initio gene prediction was performed using **GeneMark-ES**.
-
-```bash
-bash genemark.sh
-```
-
-**Input:**
-- Repeat-masked genome assembly
-
-**Output:**
-- Predicted gene models (GTF/GFF format)
-- Predicted coding sequences (CDS)
-
----
-
-### 1.4.2 Funannotate
-
-Structural and functional annotation were conducted using **Funannotate**.
-
-```bash
-bash fun.sh
-```
-
-**Input:**
-- Repeat-masked genome assembly
-- GeneMark predictions
-- Optional: transcript or protein evidence
-
-**Output:**
-- Final annotated gene models (GFF3)
-- Predicted proteins (FAA)
-- Coding sequences (FNA)
-- Functional annotations (InterPro, Pfam, GO terms)
-
----
-
-### Software Used
-
-- Hifiasm  
-- Redundans  
-- BWA  
-- SAMtools  
-- BLAST+  
-- BlobTools  
-- RepeatModeler / RepeatMasker  
-- GeneMark-ES  
-- Funannotate  
-
 
 # 2. Comparative Transcriptomics
 
