@@ -16,7 +16,7 @@ The analyses include:
 2. **Comparative transcriptomic analysis** of *Chelymorpha alternans*
 3. **Phylogenetic reconstruction** of Yellow protein family genes
 4. **Ovary-associated gland transcriptome analysis** for additional Cassidinae species
-5. **Co-phylogenetic analysis** between Yellow proteins and *Stammera* symbionts
+5. **Co-phylogenetic analysis** between Yellow proteins and *Stammera*
 6. **Positive selection analysis** of Yellow proteins
 7. **AlphaFold structural modeling and structural comparison**
 8. **Symbiont transcriptome response** under low humidity conditions
@@ -574,7 +574,7 @@ qsub raxml.sh
 
 ## 5.2 *Stammera* phylogeny 
 
-Phylogenetic reconstruction of *Stammera* symbionts was conducted using core gene sequences and corresponding outgroups.
+Phylogenetic reconstruction of *Stammera* was conducted using core gene sequences and corresponding outgroups.
 
 
 ```bash
@@ -641,7 +641,7 @@ qsub raxml.sh
 
 ## 5.3 Co-phylogenetic comparison
 
-The resulting trees were visualized side-by-side in Dendroscope3 as a tanglegram using the Neighbor Net Tanglegram algorithm. Cophylogenetic congruence between yellow genes and _Stammera_ symbionts was assessed using eMPRess GUI. 
+The resulting trees were visualized side-by-side in Dendroscope3 as a tanglegram using the Neighbor Net Tanglegram algorithm. Cophylogenetic congruence between yellow genes and _Stammera_ was assessed using eMPRess GUI. 
 
 
 # 6 Positive selection analysis of Yellow proteins
@@ -850,7 +850,7 @@ Color interpretation:
 
 # 8. Symbiont transcriptome response under low humidity conditions
 
-This workflow processes *Stammera* symbiont RNA-seq data to quantify gene expression and assess differential transcriptional responses under low humidity conditions.
+This workflow processes *Stammera* RNA-seq data to quantify gene expression and assess differential transcriptional responses under low humidity conditions.
 
 
 ```bash
@@ -863,7 +863,7 @@ cd symbiont_transcriptomics
 
 The following files are required:
 
-- **Single-end** FASTQ files  
+- Single-end FASTQ files  
   - `*_R1.fastq.gz`
 - Symbiont reference genome (FASTA format)
 - Gene annotation file (GFF format)
