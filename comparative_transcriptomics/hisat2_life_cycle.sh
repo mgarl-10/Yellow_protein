@@ -3,7 +3,7 @@
 #$ -N hisat2
 #$ -cwd
 
-reads=RNAseq/Trimmed_reads
+reads=/RNAseq/Trimmed_reads
 index=C_alternans
 
 for R1 in ${reads}/*_trimmed_1.fastq.gz; do
