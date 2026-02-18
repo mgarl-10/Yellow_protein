@@ -6,6 +6,7 @@
 library(dplyr)
 library(ggpubr)
 library(rstatix)
+library(ggplot2)
 
 
 # Figure 2D. Females: tissue effect
@@ -94,8 +95,8 @@ mod <- lm(Log_1 ~ Treatment.f * Week, data = my_data)
 anova(mod)
 
 
-ggsave("Fig2D_females_males_boxplot.pdf", p2d_sex, width = 7, height = 5)
-ggsave("Fig2D_females_males_boxplot.svg", p2d_sex, width = 7, height = 5)
+ggsave("Fig2D_females_males_boxplot.pdf", p2d_sex)
+ggsave("Fig2D_females_males_boxplot.svg", p2d_sex)
 
 #Figure 2E.  AG stages (AG_YF vs AG_OF)
 
@@ -125,6 +126,7 @@ print(t_res)
 
 # Plotting
 
+
 p2e <- ggboxplot(
   ag,
   x = "Condition.f",
@@ -143,5 +145,5 @@ p2e <- ggboxplot(
 print(p2e)
 
 
-ggsave("Fig2E_AG_stages_boxplot.pdf", p2e, width = 5, height = 5)
-ggsave("Fig2E_AG_stages_boxplot.svg", p2e, width = 5, height = 5)
+ggsave("Fig2E_AG_stages_boxplot.pdf", p2e)
+ggsave("Fig2E_AG_stages_boxplot.svg", p2e)
