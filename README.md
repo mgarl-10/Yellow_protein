@@ -33,7 +33,6 @@ Core tools:
 - Redundans
 - Seqkit
 - BWA  
-- Samtools  
 - BLAST+  
 - BlobTools  
 - RepeatModeler  
@@ -941,22 +940,61 @@ This script:
 - Generates volcano plots for each treatment comparison
 - Generates a heatmap with annotations for the Yellow condition
 
-# 9. Statistical analyses and figure generation
+# 9. Statistical Analyses and Figure Generation
+
+All statistical analyses and figure generation were performed in **R**.
 
 ```bash
 cd stats
 ```
 
-R scripts for stats and plots for Figure 2, 3, 4, 5, 6, 7, and S8.
+---
 
-- Stats_Fig_2
-- Stats_Fig_3
-- Stats_Fig_4
-- Stats_Fig_5
-- Stats_Fig_6
-- Stats_Fig_7
-- Stats_Fig_S8
+## Overview
 
-Raw files to run these scripts are located in /stats/raw_files/
+This directory contains R scripts used to generate statistical analyses and figures presented in:
+
+- Figure 2
+- Figure 3
+- Figure 4
+- Figure 5
+- Figure 6
+- Figure 7
+- Figure S8
+
+Each script reproduces the statistical tests and visualizations corresponding to its respective figure.
+
+---
+
+## Input Data
+
+Raw data files required to execute the scripts are located in:
+
+```
+stats/raw_files/
+```
+
+---
+
+## Scripts
+
+- `Stats_Fig_2.R`
+- `Stats_Fig_3.R`
+- `Stats_Fig_4.R`
+- `Stats_Fig_5.R`
+- `Stats_Fig_6.R`
+- `Stats_Fig_7.R`
+- `Stats_Fig_S8.R`
+
+---
+
+## Output
+
+Execution of these scripts generates:
+
+- Publication-ready figures (PDF/svg)
+- Statistical summaries
+
+---
 
 
