@@ -5,6 +5,8 @@
 library(dplyr)
 library("ggpubr")
 library(ggplot2)
+
+
 my_data<-read.table("storgan_yell_exp.txt",header=T,row.names=1)
 my_data$Condition.f<-factor(my_data$Condition)
 my_data$Replicate.f<-factor(my_data$Replicate)
@@ -59,3 +61,4 @@ p <-ggboxplot(my_data, x = "Condition.f", y = "copy_number", ylab = "Symbiont ti
 
 ggsave("Fig5H_Stammera_abundance_storgan_AG.pdf", p)
 ggsave("Fig5H_Stammera_abundance_storgan_AG.svg", p)
+
