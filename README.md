@@ -13,14 +13,14 @@ García-Lozano M, Emmerich C, Henzler C, Koch I, Lanz C, Ayas A, Pons I, Buttste
 The analyses include:
 
 1. **Genome assembly, decontamination, and annotation** for _Chelymorpha alternans_
-4. **Comparative transcriptomic analysis** of *Chelymorpha alternans*
-5. **Phylogenetic reconstruction** of Yellow protein family genes
-6. **Ovary-associated gland transcriptome analysis** for additional Cassidinae species
-7. **Co-phylogenetic analysis** between Yellow proteins and *Stammera* symbionts
-8. **Positive selection analysis** of Yellow proteins
-9. **AlphaFold structural modeling and structural comparison**
-10. **Symbiont Transcriptome Response** Under Low Humidity Conditions
-11. **Statistical analyses and figure generation**
+2. **Comparative transcriptomic analysis** of *Chelymorpha alternans*
+3. **Phylogenetic reconstruction** of Yellow protein family genes
+4. **Ovary-associated gland transcriptome analysis** for additional Cassidinae species
+5. **Co-phylogenetic analysis** between Yellow proteins and *Stammera* symbionts
+6. **Positive selection analysis** of Yellow proteins
+7. **AlphaFold structural modeling and structural comparison**
+8. **Symbiont Transcriptome Response** Under Low Humidity Conditions
+9. **Statistical analyses and figure generation**
 
 ---
 
@@ -645,7 +645,7 @@ qsub raxml.sh
 The resulting trees were visualized side-by-side in Dendroscope3 as a tanglegram using the Neighbor Net Tanglegram algorithm. Cophylogenetic congruence between yellow genes and _Stammera_ symbionts was assessed using eMPRess GUI. 
 
 
-# 6 Positive selection analysis for Yellow proteins
+# 6 Positive selection analysis of Yellow proteins
 
 This section describes the detection of selection signatures in Yellow protein-coding genes.
 
