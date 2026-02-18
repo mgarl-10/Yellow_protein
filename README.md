@@ -725,7 +725,7 @@ This script:
 - Generates volcano plots for each treatment comparison
 - Generates a heatmap with annotations for the Yellow condition
 
-8. **Statistical analyses and figure generation**
+# 8. Statistical analyses and figure generation
 
 
 R scripts for stats and plots for Figure 2, 3, 4, 5, 6, 7, and S8.
