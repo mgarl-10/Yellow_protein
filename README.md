@@ -31,6 +31,7 @@ Most of the analyses were performed on a Linux HPC cluster using `qsub`.
 Core tools:
 - Hifiasm
 - Redundans
+- Seqkit
 - BWA  
 - Samtools  
 - BLAST+  
@@ -76,77 +77,267 @@ cd genome_assembly
 
 ### 1.1.1 Primary Assembly (HiFi reads)
 
-Genome assembly was performed using Hifiasm followed by redundancy reduction with Redundans.
+Genome assembly was performed using **Hifiasm**, followed by redundancy reduction with **Redundans**.
+
+**Input:**
+- PacBio HiFi reads (`*.fasta`)
 
 ```bash
 bash hifiasm.sh
 bash redun.sh
+bash busco.sh
 ```
 
----
+**Output:**
+- Primary genome assembly (FASTA)
+- Purged/redundancy-reduced assembly (FASTA)
+- Assembly statistics
+- Genome completeness statistics
 
+---
 
 ## 1.2 Decontamination
 
 ```bash
-cd genome_assembly/decontamination
+cd decontamination
 ```
 
 ### 1.2.1 Read Mapping
 
-Reads were mapped back to the assembly using BWA-MEM.
+Reads were mapped back to the assembly using **BWA-MEM** to assess coverage and support contamination screening.
+
+**Input:**
+- Redundancy-reduced genome assembly (FASTA)
+- PacBio HiFi reads (FASTA/FASTQ)
 
 ```bash
-mapping.sh
+bash mapping.sh
 ```
+
+**Output:**
+- Sorted and indexed BAM file
+- Mapping statistics
 
 ---
 
-### 2.2 Contamination Screening
+### 1.2.2 Contamination Screening
 
-Taxonomic screening and decontamination were performed using BLASTn and BlobTools.
+Taxonomic screening and decontamination were performed using **BLASTn** and **BlobTools**.
 
 ```bash
-blast.sh
-blobtools.sh
+bash blast.sh
+bash blobtools.sh
 ```
+
+**Input:**
+- Genome assembly (FASTA)
+- BAM mapping file
+- NCBI nt database
+
+**Output:**
+- BLAST tabular output
+- BlobTools database (`blobDB.json`)
+- Taxon-annotated coverage plots
+- Filtered/decontaminated genome assembly
 
 ---
 
 ## 1.3 Annotation
 
 ```bash
-cd genome_assembly/annotation
+cd ../annotation
 ```
 
-
-### 1.3.1 Repeat Masking
-
-Repeat annotation and masking were performed prior to gene prediction.
-
-```bash
-repeatmasker.sh
-```
+Prior to repeat identification and gene prediction, the genome assembly was cleaned and standardized using Funannotate utilities.
 
 ---
 
-## 1.4. Gene Prediction
+### 1.3.1 Genome Cleaning and Sorting
+
+Small contigs (< 1000 bp) were removed and contigs were renamed for consistency.
+
+```bash
+funannotate clean \
+-i C_alternans_assembly_filtered.fasta \
+--minlen 1000 \
+-o C_alternans_genome_cleaned.fa \
+--cpus 32
+
+funannotate sort \
+-i C_alternans_genome_cleaned.fa \
+-b contig \
+-o C_alternans_genome_cleaned_sorted.fa
+```
+
+**Input:**
+- Decontaminated genome assembly (`C_alternans_assembly_filtered.fasta`)
+
+**Output:**
+- Length-filtered genome assembly (`C_alternans_genome_cleaned.fa`)
+- Sorted and standardized genome assembly (`C_alternans_genome_cleaned_sorted.fa`)
+
+---
+
+
+### 1.3.2 Repeat Identification and Masking
+
+Repeat annotation was performed using **RepeatModeler v2.0.3** to build a species-specific repeat library, followed by genome masking using **Funannotate (RepeatMasker backend)**.
+
+---
+
+#### 1.3.2.1 Build RepeatModeler Database
+
+```bash
+/code/RepeatModeler-2.0.3/BuildDatabase \
+-name C_alternans \
+-engine ncbi \
+C_alternans_genome_cleaned_sorted.fa \
+> database_build_C_alternans_run.out
+```
+
+**Input:**
+- Cleaned and sorted genome assembly (`C_alternans_genome_cleaned_sorted.fa`)
+
+**Output:**
+- RepeatModeler database files
+
+---
+
+#### 1.3.2.2 De Novo Repeat Identification
+
+```bash
+/code/RepeatModeler-2.0.3/RepeatModeler \
+-database C_alternans \
+-engine ncbi \
+-pa 32 \
+-LTRStruct \
+> C_alternans_run_repeatmodeler.out
+```
+
+**Input:**
+- RepeatModeler database
+
+**Output:**
+- Species-specific repeat library  
+  (`consensi.fa.classified`)
+
+---
+
+#### 1.3.2.3 Genome Masking
+
+The custom repeat library was used to mask the genome via Funannotate (RepeatMasker backend).
+
+```bash
+funannotate mask \
+-i C_alternans_genome_cleaned_sorted.fa \
+-m repeatmasker \
+-l ./RM_XXXX/consensi.fa.classified \
+--cpus 64 \
+-o C_alternans_genome_masked.fa
+```
+
+**Input:**
+- Cleaned and sorted genome assembly
+- Custom repeat library (`consensi.fa.classified`)
+
+**Output:**
+- Soft-masked genome assembly (`C_alternans_genome_masked.fa`)
+- Repeat annotation files
+
+---
+
+
+
+## 1.4 Gene Prediction
 
 ### 1.4.1 GeneMark
 
+Ab initio gene prediction was performed using GeneMark-ES.
+
 ```bash
-genemark.sh
+bash genemark.sh
 ```
+
+**Input:**
+- Repeat-masked genome assembly
+
+**Output:**
+- Predicted gene models (GTF/GFF format)
+- Predicted coding sequences (CDS)
+
+---
 
 ### 1.4.2 Funannotate
 
 Structural and functional annotation were conducted using Funannotate.
 
 ```bash
-fun.sh
+bash fun.sh
 ```
 
+**Input:**
+- Repeat-masked genome assembly
+- GeneMark predictions
+- Optional: transcript or protein evidence
+
+**Output:**
+- Final annotated gene models (GFF3)
+- Predicted proteins (FAA)
+- Coding sequences (FNA)
+- Functional annotations (InterPro, Pfam, GO terms)
+
+
+## 1.4 Gene Prediction
+
+### 1.4.1 GeneMark
+
+Ab initio gene prediction was performed using **GeneMark-ES**.
+
+```bash
+bash genemark.sh
+```
+
+**Input:**
+- Repeat-masked genome assembly
+
+**Output:**
+- Predicted gene models (GTF/GFF format)
+- Predicted coding sequences (CDS)
+
 ---
+
+### 1.4.2 Funannotate
+
+Structural and functional annotation were conducted using **Funannotate**.
+
+```bash
+bash fun.sh
+```
+
+**Input:**
+- Repeat-masked genome assembly
+- GeneMark predictions
+- Optional: transcript or protein evidence
+
+**Output:**
+- Final annotated gene models (GFF3)
+- Predicted proteins (FAA)
+- Coding sequences (FNA)
+- Functional annotations (InterPro, Pfam, GO terms)
+
+---
+
+### Software Used
+
+- Hifiasm  
+- Redundans  
+- BWA  
+- SAMtools  
+- BLAST+  
+- BlobTools  
+- RepeatModeler / RepeatMasker  
+- GeneMark-ES  
+- Funannotate  
 
 
 # 2. Comparative Transcriptomics
