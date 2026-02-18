@@ -86,7 +86,7 @@ The workflow generates:
 ### Adapter removal and quality trimming
 
 ```bash
-qsub trimmomatic.sh
+qsub trim.sh
 ```
 
 This step:
@@ -101,7 +101,7 @@ This step:
 ### Step 1: Index the reference genome
 
 ```bash
-hisat2-build genome.fa genome_index
+hisat2-build-l C_alternans_genome.fa C_alternans
 ```
 
 ### Step 2: Align trimmed reads to *Chelymorpha alternans* genome
@@ -171,7 +171,7 @@ To standardize FASTA headers and retain species names, sequences were renamed us
 - `rename_fasta.py`
 
 ```bash
-python rename_fasta.py input_sequences.fasta fasta_IDS.csv > renamed_sequences.fasta
+python rename_fasta.py
 ```
 
 This step ensures consistent species naming across downstream analyses.
@@ -180,15 +180,13 @@ This step ensures consistent species naming across downstream analyses.
 
 ## 2.2 Multiple Sequence Alignment
 
-Sequences were aligned using MAFFT:
+Sequences listed in the fasta IDs.csv file and Drosophila sequences obtained from NCBI were aligned using MAFFT:
 
 ```bash
-mafft --auto renamed_sequences.fasta > aligned_sequences.fasta
+mafft --auto yellow_filtered_coleopt_hymenopt_chely_bact_Drosophila_renamed.fasta > yellow_filtered_coleopt_hymenopt_chely_bact_Drosophila_renamed_alignment.fasta
 ```
+*The alignment was converted to PHYLIP format in Geneious.
 
-This step:
-- Performs multiple sequence alignment
-- Automatically selects appropriate alignment parameters
 
 ---
 
@@ -257,7 +255,7 @@ This workflow generates:
 ### Adapter Removal and Quality Trimming
 
 ```bash
-qsub trimmomatic.sh
+qsub trim.sh
 ```
 
 This step removes adapter contamination and low-quality bases.
@@ -284,7 +282,6 @@ qsub busco.sh
 
 This step:
 - Evaluates assembly completeness
-- Reports single-copy ortholog recovery statistics
 
 ---
 
@@ -331,8 +328,9 @@ Phylogenetic reconstruction was performed using protein sequences from seven Cas
 Alignment was performed using MUSCLE:
 
 ```bash
-muscle -in input_proteins.fasta -out aligned_proteins.fasta
+muscle -align yellow_protein_outgroup.fasta -output yellow_protein_alignment_outgroup.fasta
 ```
+*The alignment was converted to PHYLIP format in Geneious.
 
 ---
 
@@ -390,6 +388,7 @@ Each gene was aligned separately using MUSCLE:
 ```bash
 qsub align_muscle_seq.sh
 ```
+*The alignment was converted to PHYLIP format in Geneious.
 
 ---
 
@@ -398,7 +397,7 @@ qsub align_muscle_seq.sh
 Individual alignments were concatenated into a supermatrix:
 
 ```bash
-perl catfasta2phyml.pl *.fas > out.phy 2> partitions.txt
+perl catfasta2phyml.pl *.fasta > concatenated_aln_yellow_species.phy 2> partitions.txt
 ```
 
 ---
@@ -456,7 +455,7 @@ Outputs used:
 Protein sequences were aligned using MUSCLE:
 
 ```bash
-muscle -in yellow_proteins.fasta -out yellow_proteins_aligned.fasta
+muscle -align yellow_proteins_7species.fasta -output protein_aln_7species.fasta
 ```
 
 This step generates amino acid alignments for downstream codon-aware alignment.
@@ -726,4 +725,16 @@ This script:
 - Generates volcano plots for each treatment comparison
 - Generates a heatmap with annotations for the Yellow condition
 
+8. **Statistical analyses and figure generation**
 
+
+R scripts for stats and plots for Figure 2, 3, 4, 5, 6, 7, and S8.
+
+- Stats_Fig_2
+- Stats_Fig_3
+- Stats_Fig_4
+- Stats_Fig_5
+- Stats_Fig_6
+- Stats_Fig_7
+- Stats_Fig_S8
+  
