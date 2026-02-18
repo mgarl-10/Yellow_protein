@@ -82,9 +82,9 @@ Genome assembly was performed using **Hifiasm**, followed by redundancy reductio
 - PacBio HiFi reads (`*.fasta`)
 
 ```bash
-bash hifiasm.sh
-bash redun.sh
-bash busco.sh
+qsub hifiasm.sh
+qsub redun.sh
+qsub busco.sh
 ```
 
 **Output:**
@@ -110,7 +110,7 @@ Reads were mapped back to the assembly using **BWA-MEM** to assess coverage and 
 - PacBio HiFi reads (FASTA/FASTQ)
 
 ```bash
-bash mapping.sh
+qsub mapping.sh
 ```
 
 **Output:**
@@ -124,8 +124,8 @@ bash mapping.sh
 Taxonomic screening and decontamination were performed using **BLASTn** and **BlobTools**.
 
 ```bash
-bash blast.sh
-bash blobtools.sh
+qsub blast.sh
+qsub blobtools.sh
 ```
 
 **Input:**
@@ -244,7 +244,7 @@ funannotate mask \
 Ab initio gene prediction was performed using GeneMark-ES.
 
 ```bash
-bash genemark.sh
+qsub genemark.sh
 ```
 
 **Input:**
@@ -261,7 +261,7 @@ bash genemark.sh
 Structural and functional annotation were conducted using Funannotate.
 
 ```bash
-bash fun.sh
+qsub fun.sh
 ```
 
 **Input:**
