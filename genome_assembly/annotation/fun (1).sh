@@ -6,10 +6,8 @@
 
 source ~/.bashrc
 
-conda activate funannotate_2
+conda activate funannotate
 
-#funannotate clean -i C_rubiginosa_assembly_filtered.fasta --minlen 1000 -o C_rubiginosa_genome_cleaned.fa --cpus 32
-#funannotate sort -i C_rubiginosa_genome_cleaned.fa -b contig -o C_rubiginosa_genome_cleaned_sorted.fa 
 
 #funannotate mask -i C_rubiginosa_genome_cleaned_sorted.fa -m repeatmasker -l ./RM_95950.WedFeb211359442024/consensi.fa.classified --cpus 64 -o C_rubiginosa_assembly.fa
 
