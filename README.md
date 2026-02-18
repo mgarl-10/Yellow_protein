@@ -62,7 +62,7 @@ Core tools:
 - featureCounts
 - R
 
-# 1. Genome Assembly for *Chelymorpha alternans*
+# 1. Genome assembly for *Chelymorpha alternans*
 
 
 ```bash
@@ -73,7 +73,7 @@ cd genome_assembly
 
 ## 1.1 Assembly
 
-### 1.1.1 Primary Assembly (HiFi reads)
+### 1.1.1 Primary assembly (HiFi reads)
 
 Genome assembly was performed using **Hifiasm**, followed by redundancy reduction with **Redundans**.
 
@@ -100,7 +100,7 @@ qsub busco.sh
 cd decontamination
 ```
 
-### 1.2.1 Read Mapping
+### 1.2.1 Read mapping
 
 Reads were mapped back to the assembly using **BWA-MEM** to assess coverage and support contamination screening.
 
@@ -118,7 +118,7 @@ qsub mapping.sh
 
 ---
 
-### 1.2.2 Contamination Screening
+### 1.2.2 Contamination screening
 
 Taxonomic screening and decontamination were performed using **BLASTn** and **BlobTools**.
 
@@ -150,7 +150,7 @@ Prior to repeat identification and gene prediction, the genome assembly was clea
 
 ---
 
-### 1.3.1 Genome Cleaning and Sorting
+### 1.3.1 Genome cleaning and sorting
 
 Small contigs (< 1000 bp) were removed and contigs were renamed for consistency.
 
@@ -177,13 +177,13 @@ funannotate sort \
 ---
 
 
-### 1.3.2 Repeat Identification and Masking
+### 1.3.2 Repeat identification and masking
 
 Repeat annotation was performed using **RepeatModeler v2.0.3** to build a species-specific repeat library, followed by genome masking using **Funannotate (RepeatMasker backend)**.
 
 ---
 
-#### 1.3.2.1 Build RepeatModeler Database
+#### 1.3.2.1 Build RepeatModeler database
 
 ```bash
 repeatmodeler.sh
@@ -197,7 +197,7 @@ repeatmodeler.sh
 
 ---
 
-#### 1.3.2.2 De Novo Repeat Identification
+#### 1.3.2.2 De novo repeat identification
 
 ```bash
 repeatmodeler.sh
@@ -212,7 +212,7 @@ repeatmodeler.sh
 
 ---
 
-#### 1.3.2.3 Genome Masking
+#### 1.3.2.3 Genome masking
 
 The custom repeat library was used to mask the genome via Funannotate (RepeatMasker backend).
 
@@ -236,7 +236,7 @@ funannotate mask \
 ---
 
 
-## 1.4 Gene Prediction
+## 1.4 Gene prediction
 
 ### 1.4.1 GeneMark
 
@@ -274,14 +274,14 @@ qsub fun.sh
 - Coding sequences (FNA)
 - Functional annotations (InterPro, Pfam, GO terms)
 
-# 2. Comparative Transcriptomics
+# 2. Comparative transcriptomics
 
 
 ```bash
 cd comparative_transcriptomics
 ```
 
-## Input Files
+## Input files
 
 The following files are required:
 
@@ -292,7 +292,7 @@ The following files are required:
 - Gene annotation file (gff3 format)
 - `TruSeq3-PE.fa` adapter file
 
-## Output Files
+## Output files
 
 The workflow generates:
 
@@ -302,7 +302,7 @@ The workflow generates:
 - Differential expression results table
 - Volcano plot
 
-## 2.1 Quality Control
+## 2.1 Quality control
 
 ### Adapter removal and quality trimming
 
@@ -317,7 +317,7 @@ This step:
 
 ---
 
-## 2.2 Mapping to Reference Genome
+## 2.2 Mapping to reference genome
 
 ### Step 1: Index the reference genome
 
@@ -348,7 +348,7 @@ This step:
 
 ---
 
-## 2.3 Quantification of Mapped Reads
+## 2.3 Quantification of mapped Reads
 
 ```bash
 qsub htseq_exon.sh
@@ -360,7 +360,7 @@ This step:
 
 ---
 
-## 2.4 Differential Gene Expression Analysis
+## 2.4 Differential gene expression analysis
 
 ```bash
 Rscript DESeq2.R
@@ -374,7 +374,7 @@ This script:
 
 ---
 
-# 3. Phylogenetic Analysis of Yellow Proteins
+# 3. Phylogenetic analysis of Yellow proteins
 
 
 ```bash
@@ -383,7 +383,7 @@ cd phylogenies/Yellow_protein_tree
 
 ---
 
-## 3.1 Sequence Renaming
+## 3.1 Sequence renaming
 
 To standardize FASTA headers and retain species names, sequences were renamed using:
 
@@ -398,7 +398,7 @@ This step ensures consistent species naming across downstream analyses.
 
 ---
 
-## 3.2 Multiple Sequence Alignment
+## 3.2 Multiple sequence alignment
 
 Sequences listed in the fasta IDs.csv file and Drosophila sequences obtained from NCBI were aligned using MAFFT:
 
@@ -410,7 +410,7 @@ mafft --auto yellow_filtered_coleopt_hymenopt_chely_bact_Drosophila_renamed.fast
 
 ---
 
-## 3.3 Model Selection
+## 3.3 Model selection
 
 The best-fit amino acid substitution model was determined using ModelTest:
 
@@ -424,7 +424,7 @@ This step:
 
 ---
 
-## 3.4 Phylogenetic Tree Construction
+## 3.4 Phylogenetic tree construction
 
 Phylogenetic reconstruction was performed using RAxML:
 
@@ -439,7 +439,7 @@ This step:
 
 ---
 
-# 4. Ovary-Associated Gland Transcriptome Analysis for Additional Cassidinae Species
+# 4. Ovary-associated gland transcriptome analysis for additional Cassidinae species
 
 
 ```bash
@@ -448,7 +448,7 @@ cd AG_transcriptomes
 
 ---
 
-## Input Files
+## Input files
 
 - Paired-end FASTQ files:
   - `*_R1.fastq.gz`
@@ -457,7 +457,7 @@ cd AG_transcriptomes
 
 ---
 
-## Output Files
+## Output files
 
 This workflow generates:
 
@@ -469,9 +469,9 @@ This workflow generates:
 
 ---
 
-## 4.1 Quality Control
+## 4.1 Quality control
 
-### Adapter Removal and Quality Trimming
+### Adapter removal and quality trimming
 
 ```bash
 qsub trim.sh
@@ -481,7 +481,7 @@ This step removes adapter contamination and low-quality bases.
 
 ---
 
-## 4.2 De Novo Transcriptome Assembly (Trinity)
+## 4.2 De novo transcriptome assembly (Trinity)
 
 ```bash
 qsub trinity.sh
@@ -493,7 +493,7 @@ This step:
 
 ---
 
-## 4.3 Assembly Quality Assessment (BUSCO)
+## 4.3 Assembly quality assessment (BUSCO)
 
 ```bash
 qsub busco.sh
@@ -504,7 +504,7 @@ This step:
 
 ---
 
-## 4.4 Transcript Abundance Estimation (RSEM)
+## 4.4 Transcript abundance estimation (RSEM)
 
 ```bash
 qsub trinity_misc.sh
@@ -516,7 +516,7 @@ This step:
 
 ---
 
-## 4.5 Protein-Coding Gene Prediction (TransDecoder)
+## 4.5 Protein-coding gene prediction (TransDecoder)
 
 ```bash
 qsub transdecoder.sh
@@ -526,7 +526,7 @@ This step:
 - Identifies candidate coding regions
 - Predicts protein sequences from assembled transcripts
 
-# 5. Co-phylogenetic Analysis Between Yellow Proteins and *Stammera* Symbionts
+# 5. Co-phylogenetic analysis between Yellow proteins and *Stammera* 
 
 This section describes the reconstruction of host and symbiont phylogenies for co-phylogenetic comparison.
 
@@ -537,11 +537,11 @@ cd phylogenies/Yellow_protein_Cassidinae
 
 ---
 
-## 5.1 Host Phylogeny: Cassidinae Species (7 Species + 1 Outgroup)
+## 5.1 Host phylogeny: Cassidinae species (7 species + 1 outgroup)
 
 Phylogenetic reconstruction was performed using protein sequences from seven Cassidinae species and one outgroup species. 
 
-### Step 1: Multiple Sequence Alignment
+### Step 1: Multiple sequence alignment
 
 Alignment was performed using MUSCLE:
 
@@ -552,7 +552,7 @@ muscle -align yellow_protein_outgroup.fasta -output yellow_protein_alignment_out
 
 ---
 
-### Step 2: Model Selection
+### Step 2: Model selection
 
 The best-fit amino acid substitution model was determined using ModelTest:
 
@@ -562,7 +562,7 @@ qsub modeltest.sh
 
 ---
 
-### Step 3: Phylogenetic Tree Reconstruction
+### Step 3: Phylogenetic tree reconstruction
 
 Maximum likelihood phylogeny was reconstructed using RAxML:
 
@@ -572,7 +572,7 @@ qsub raxml.sh
 
 ---
 
-## 5.2 *Stammera* Symbiont Phylogeny 
+## 5.2 *Stammera* phylogeny 
 
 Phylogenetic reconstruction of *Stammera* symbionts was conducted using core gene sequences and corresponding outgroups.
 
@@ -583,7 +583,7 @@ cd phylogenies/Stammera_phylogeny
 
 ---
 
-### Step 1: Extraction of Core Sequences
+### Step 1: Extraction of core sequences
 
 Core gene sequences were extracted using:
 
@@ -598,7 +598,7 @@ This step:
 
 ---
 
-### Step 2: Individual Gene Alignments
+### Step 2: Individual gene alignments
 
 Each gene was aligned separately using MUSCLE:
 
@@ -609,7 +609,7 @@ qsub align_muscle_seq.sh
 
 ---
 
-### Step 3: Concatenation of Alignments
+### Step 3: Concatenation of alignments
 
 Individual alignments were concatenated into a supermatrix:
 
@@ -619,7 +619,7 @@ perl catfasta2phyml.pl *.fasta > concatenated_aln_yellow_species.phy 2> partitio
 
 ---
 
-### Step 4: Partitioning Scheme and Model Selection
+### Step 4: Partitioning scheme and model selection
 
 PartitionFinder was used to infer the optimal partitioning scheme and substitution models. 
 
@@ -629,7 +629,7 @@ qsub partitionfinder.sh
 
 ---
 
-### Step 5: Phylogenetic Tree Reconstruction
+### Step 5: Phylogenetic tree reconstruction
 
 The concatenated alignment was used for maximum likelihood tree reconstruction with RAxML:
 
@@ -639,7 +639,7 @@ qsub raxml.sh
 
 ---
 
-## 5.3 Co-phylogenetic Comparison
+## 5.3 Co-phylogenetic comparison
 
 The resulting trees were visualized side-by-side in Dendroscope3 as a tanglegram using the Neighbor Net Tanglegram algorithm. Cophylogenetic congruence between yellow genes and _Stammera_ symbionts was assessed using eMPRess GUI. 
 
@@ -655,7 +655,7 @@ cd positive_selection
 
 ---
 
-## 6.1 Sequence Retrieval
+## 6.1 Sequence retrieval
 
 Protein and corresponding coding sequences (CDS) were obtained from Trinity assemblies using TransDecoder (see Section 3.5).
 
@@ -666,7 +666,7 @@ Outputs used:
 
 ---
 
-## 6.2 Protein Alignment
+## 6.2 Protein alignment
 
 Protein sequences were aligned using MUSCLE:
 
@@ -678,7 +678,7 @@ This step generates amino acid alignments for downstream codon-aware alignment.
 
 ---
 
-## 6.3 Codon-Aware Alignment
+## 6.3 Codon-aware alignment
 
 Codon-aware nucleotide alignments were generated using PAL2NAL:
 
@@ -693,7 +693,7 @@ This step:
 
 ---
 
-## 6.4 Detection of Positive Selection
+## 6.4 Detection of positive selection
 
 Positive selection was tested using the **FEL (Fixed Effects Likelihood)** method implemented in Datamonkey (HyPhy framework).
 
@@ -703,13 +703,13 @@ Steps:
 3. Use the corresponding maximum likelihood phylogenetic tree.
 4. Identify sites under selection based on statistical significance (p-value threshold).
 
-# 7. AlphaFold Structural Modeling and Structural Comparison
+# 7. AlphaFold structural modeling and structural comparison
 
 This section describes structural prediction and comparative analysis of Yellow proteins across seven Cassidinae species.
 
 ---
 
-## 7.1 Structure Prediction
+## 7.1 Structure prediction
 
 Predicted protein structures were generated using the AlphaFold Server (AlphaFold 3).
 
@@ -722,13 +722,13 @@ cd pymol
 
 ---
 
-## 7.2 Structural Alignment in PyMOL
+## 7.2 Structural alignment in PyMOL
 
 The predicted structures were imported into PyMOL for structural comparison.
 
 The *C. alternans* Yellow protein was selected as the reference structure.
 
-### Pairwise Structural Alignment
+### Pairwise structural alignment
 
 ```python
 align model_5, model_1
@@ -741,7 +741,7 @@ align model_5, model_7
 
 ---
 
-## 7.3 Per-Residue RMSD Calculation
+## 7.3 Per-residue RMSD calculation
 
 A custom PyMOL script (`pymol_aln.py`) was used to calculate per-residue RMSD values by measuring distances between Cα atoms across aligned models.
 
@@ -772,7 +772,7 @@ cartoon oval
 
 ---
 
-## 7.4 Model Confidence (pLDDT) Analysis
+## 7.4 Model confidence (pLDDT) analysis
 
 Model confidence scores (pLDDT) were extracted from AlphaFold predictions and summarized by exon region.
 
@@ -790,9 +790,9 @@ python extract_plddt_with_regions.py
 
 ---
 
-## 7.5 Mapping Functional and Evolutionary Sites
+## 7.5 Mapping functional and evolutionary sites
 
-### Hydrophobic Residues
+### Hydrophobic residues
 
 Hydrophobic residues were identified and highlighted in PyMOL based on amino acid identity:
 
@@ -818,7 +818,7 @@ color yellow, hydro_res
 
 ---
 
-### Positively Selected Sites
+### Positively selected sites
 
 Codon sites identified as evolving under positive selection (see Section 5) were mapped onto the predicted structure.
 
@@ -830,7 +830,7 @@ color red, pos_sites
 
 ---
 
-## 7.6 Model Confidence Visualization (pLDDT)
+## 7.6 Model confidence visualization (pLDDT)
 
 AlphaFold confidence scores (pLDDT), stored in the B-factor field of the predicted structures, were visualized in PyMOL using the standard AlphaFold color scheme (blue = high confidence).
 
@@ -848,7 +848,7 @@ Color interpretation:
 - **Orange/Red**: very low confidence (< 50)
 
 
-# 8. Symbiont Transcriptome Response Under Low Humidity Conditions
+# 8. Symbiont transcriptome response under low humidity conditions
 
 This workflow processes *Stammera* symbiont RNA-seq data to quantify gene expression and assess differential transcriptional responses under low humidity conditions.
 
@@ -859,7 +859,7 @@ cd symbiont_transcriptomics
 
 ---
 
-## 8.1 Input Files
+## 8.1 Input files
 
 The following files are required:
 
@@ -871,7 +871,7 @@ The following files are required:
 
 ---
 
-## 8.2 Output Files
+## 8.2 Output files
 
 This workflow generates:
 
@@ -884,7 +884,7 @@ This workflow generates:
 
 ---
 
-## 8.3 Quality Control
+## 8.3 Quality control
 
 ### Adapter removal and quality trimming
 
@@ -895,7 +895,7 @@ qsub trim.sh
 
 ---
 
-## 8.4 Mapping to Reference Genome
+## 8.4 Mapping to reference genome
 
 ### Step 1: Index the reference genome
 
@@ -915,7 +915,7 @@ This step:
 
 ---
 
-## 8.5 Quantification of Mapped Reads
+## 8.5 Quantification of mapped reads
 
 ```bash
 qsub featurecounts.sh
@@ -927,7 +927,7 @@ This step:
 
 ---
 
-## 8.6 Differential Gene Expression Analysis
+## 8.6 Differential gene expression analysis
 
 ```bash
 Rscript DESeq_script_Stammera.R
@@ -940,7 +940,7 @@ This script:
 - Generates volcano plots for each treatment comparison
 - Generates a heatmap with annotations for the Yellow condition
 
-# 9. Statistical Analyses and Figure Generation
+# 9. Statistical analyses and figure generation
 
 All statistical analyses and figure generation were performed in **R**.
 
@@ -966,7 +966,7 @@ Each script reproduces the statistical tests and visualizations corresponding to
 
 ---
 
-## Input Data
+## Input data
 
 Raw data files required to execute the scripts are located in:
 
