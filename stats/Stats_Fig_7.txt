@@ -1,11 +1,13 @@
 Figure 7. Yellow protects Stammera from dessication during extracellular transmission.
 
+
 Figure 7C. Stammera titers in eggs from females during the first two weeks post-injection under both control and low humidity conditions
 
 library(dplyr)
 library(MASS)     
 library(multcomp)   
 library(car)
+library(ggplot2)
 
 my_data <- read.table("sym_titers_dehy_Ed9.txt", header = TRUE)
 
@@ -74,7 +76,7 @@ my_data$Treatment <- factor(my_data$Treatment,
                             levels = c("untreated", "low_hum"))
 
 
-ggplot(my_data, aes(x = Condition, y = copy_number, fill = Treatment)) +
+p <-ggplot(my_data, aes(x = Condition, y = copy_number, fill = Treatment)) +
   geom_boxplot(
     outlier.shape = NA,
     color = "black",
@@ -110,6 +112,6 @@ ggplot(my_data, aes(x = Condition, y = copy_number, fill = Treatment)) +
   )
 
 
-ggsave("Fig7C_sym_abundance_low_hum.pdf", p, width = 8, height = 8)
-ggsave("Fig7C_sym_abundance_low_humt.svg", p, width = 8, height = 8)
+ggsave("Fig7C_sym_abundance_low_hum.pdf", p)
+ggsave("Fig7C_sym_abundance_low_humt.svg", p)
 
