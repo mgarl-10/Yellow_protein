@@ -72,14 +72,6 @@ qsub -l h_vmem=XXG -pe parallel XX
 
 are not included in the submitted scripts, as memory limits (h_vmem) and parallel environments (-pe) vary substantially across HPC systems.
 
-Different clusters may:
-
-Use different parallel environment names
-
-Enforce different memory request formats
-
-Use alternative schedulers (e.g., SLURM, PBS, LSF)
-
 Users should therefore modify job submission headers in each *.sh file according to their local cluster configuration and resource availability.
 
 
