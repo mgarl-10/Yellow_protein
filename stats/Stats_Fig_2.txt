@@ -1,7 +1,7 @@
 # Figure 2. Yellow is produced in the ovary-associated glands and is secreted into the egg caplet, embedding Stammera.
 
-# Figure 2D: Yellow expression across female body compartments + sex comparison
-# Figure 2E: Yellow expression in ovary-associated glands across developmental stages
+# Figure 2D. Yellow expression across female body compartments + sex comparison
+# Figure 2E. Yellow expression in ovary-associated glands across developmental stages
 
 library(dplyr)
 library(ggpubr)
@@ -147,3 +147,4 @@ print(p2e)
 
 ggsave("Fig2E_AG_stages_boxplot.pdf", p2e)
 ggsave("Fig2E_AG_stages_boxplot.svg", p2e)
+
