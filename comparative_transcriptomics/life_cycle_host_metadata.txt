@@ -1,0 +1,7 @@
+Sample	Treatment	Replicate
+Adult_FG_1	Adult_FG	R1
+Adult_FG_2	Adult_FG	R2
+Adult_FG_3	Adult_FG	R3
+Adult_OV_1	Adult_OV	R1
+Adult_OV_2	Adult_OV	R2
+Adult_OV_3	Adult_OV	R3
