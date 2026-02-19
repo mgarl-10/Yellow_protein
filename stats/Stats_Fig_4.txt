@@ -1,7 +1,7 @@
 
 # Figure 4. Stammera proliferation in the ovary associated gland is decoupled from Yellow production.
 
-# Figure 4B yellow expression across different ovary-associated gland segments in 1-day old and 31-day old adult females compared to segment 3
+# Figure 4B. Yellow expression across different ovary-associated gland segments in 1-day old and 31-day old adult females compared to segment 3
 
 
 library(dplyr)
@@ -101,7 +101,7 @@ ggsave("Fig4B_Yellow_expression_AG_sections_1_31_days.pdf", p)
 ggsave("Fig4B_Yellow_expression_AG_sections_1_31_days.svg", p)
 
 
-# Figure 4C Stammera abundance across different ovary-associated gland segments in 1-day old and 31-day old adult females
+# Figure 4C. Stammera abundance across different ovary-associated gland segments in 1-day old and 31-day old adult females
 
 # Stats per age group 1 day old females #
 
@@ -187,4 +187,5 @@ p
 
 ggsave("Fig4C_Stammera_abundance_AG_sections_1_31_days.pdf", p)
 ggsave("Fig4C_Stammera_abundance_AG_sections_1_31_days.svg", p)
+
 
