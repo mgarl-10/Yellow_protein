@@ -66,7 +66,9 @@ Core tools:
 
 Resource specifications such as:
 
+```bash
 qsub -l h_vmem=XXG -pe parallel XX
+```
 
 are not included in the submitted scripts, as memory limits (h_vmem) and parallel environments (-pe) vary substantially across HPC systems.
 
