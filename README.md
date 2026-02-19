@@ -111,7 +111,7 @@ qsub busco.sh
 ## 1.2 Decontamination
 
 ```bash
-cd decontamination
+cd genome_assembly/decontamination
 ```
 
 ### 1.2.1 Read mapping
@@ -157,7 +157,7 @@ qsub blobtools.sh
 ## 1.3 Annotation
 
 ```bash
-cd ../annotation
+cd genome_assembly/annotation
 ```
 
 Prior to repeat identification and gene prediction, the genome assembly was cleaned and standardized using Funannotate utilities.
