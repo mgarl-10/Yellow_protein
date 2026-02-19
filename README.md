@@ -276,6 +276,7 @@ qsub fun.sh
 
 # 2. Comparative transcriptomics
 
+Comparative transcriptomics between foregut symbiotic organs and ovary-associated glands in _Chelymorpha alternans_
 
 ```bash
 cd comparative_transcriptomics
