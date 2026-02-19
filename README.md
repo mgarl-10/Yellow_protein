@@ -29,38 +29,39 @@ The analyses include:
 Most of the analyses were performed on a Linux HPC cluster using `qsub`.
 
 Core tools:
-- Hifiasm
-- Redundans
-- Seqkit
+- Hifiasm (v0.14.1-r314)
+- Redundans (v0.14a)
+- Seqkit (v0.16.1)
 - BWA  
 - BLAST+  
 - BlobTools  
-- RepeatModeler  
-- RepeatMasker  
-- GeneMark  
+- RepeatModeler (v2.0.3)
+- RepeatMasker (v4.0.7)
+- GeneMark-ES (v4.69)
 - Funannotate
-- Trimmomatic
-- HISAT2
-- SAMtools
-- HTSeq
+- Trimmomatic (v0.36)
+- HISAT2 (v2.2.0)
+- SAMtools (v1.16.1)
+- HTSeq (v0.11.5)
 - DESeq2
-- Trinity
-- BUSCO
+- Trinity (v2.8.5)
+- BUSCO (v5.1.2)
 - RSEM
-- TransDecoder
-- MAFFT
-- MUSCLE
-- RAxML
-- PartitionFinder
-- PAL2NAL
+- TransDecoder (v5.5.0)
+- MAFFT (v1.4.0)
+- MUSCLE (v5.1)
+- RAxML-NG (v1.2.0)
+- PartitionFinder (v2.1.1)
+- PAL2NAL (v14)
 - Datamonkey (HyPhy FEL)
 - AlphaFold Server (AF3)
-- PyMOL
+- PyMOL (v2.5.5)
 - Dendroscope3
-- eMPRess
-- Bowtie
+- eMPRess GUI
+- Bowtie2 (v2.3.5.1)
 - featureCounts
-- R
+- R (v4.3.1)
+
 
 ## Important:
 
@@ -227,7 +228,7 @@ repeatmodeler.sh
 
 #### 1.3.2.3 Genome masking
 
-The custom repeat library was used to mask the genome via Funannotate (RepeatMasker backend).
+The custom repeat library was used to mask the genome via Funannotate (RepeatMasker).
 
 ```bash
 funannotate mask \
