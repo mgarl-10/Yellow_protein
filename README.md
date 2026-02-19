@@ -13,7 +13,7 @@ García-Lozano M, Emmerich C, Henzler C, Koch I, Lanz C, Ayas A, Pons I, Buttste
 The analyses include:
 
 1. **Assembly, decontamination, and annotation** for _Chelymorpha alternans_ genome
-2. **Comparative transcriptomic analysis** of *Chelymorpha alternans*
+2. **Comparative transcriptomic analysis** of symbiotic organs in *Chelymorpha alternans*
 3. **Phylogenetic reconstruction** of Yellow protein family genes
 4. **Ovary-associated gland transcriptome analysis** for additional Cassidinae species
 5. **Co-phylogenetic analysis** between Yellow proteins and *Stammera*
@@ -27,6 +27,14 @@ The analyses include:
 ## Software Requirements
 
 Most of the analyses were performed on a Linux HPC cluster using `qsub`.
+
+## Important:
+
+Resource specifications such as:
+
+qsub -l h_vmem=XXG -pe parallel XX
+
+are not included in the submitted scripts, as memory limits (h_vmem) and parallel environments (-pe) vary substantially across HPC systems.
 
 Core tools:
 - Hifiasm
