@@ -1,7 +1,7 @@
 #Figure 3. Molecular evolution of Yellow in tortoise beetles.
 
 
-# Figure 3B — Transcript abundance from ovary-associated gland transcriptomes
+# Figure 3B. Transcript abundance from ovary-associated gland transcriptomes
 
 
 library(ggplot2)
@@ -88,4 +88,5 @@ rownames(negative_selection_matrix) <- c("Exon1", "Exon2_3")
 colnames(negative_selection_matrix) <- c("Selected", "NotSelected")
 
 fisher.test(negative_selection_matrix,alternative="less")
+
 
