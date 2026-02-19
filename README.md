@@ -1017,9 +1017,12 @@ Execution of these scripts generates:
 
 If you use this repository, please cite:
 
-García-Lozano et al. (2026). Yellow protein co-opted to sustain obligate symbiosis in beetles.
+García-Lozano M et al. (2026).
+Yellow protein co-opted to sustain obligate symbiosis in beetles.
 
-Zenodo DOI: 10.5281/zenodo.XXXXXXX
+
+Code repository:
+Zenodo DOI: 
 
 
 
