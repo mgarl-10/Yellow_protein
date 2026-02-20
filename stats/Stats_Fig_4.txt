@@ -123,7 +123,7 @@ leveneTest(copy_number_boxcox ~ Section.f, data = d1_boxcox)
 
 # Model
 
-mod_boxcox=lm(copy_number_boxcox~ Condition.f + Replicate.f,d1_boxcox)
+mod_boxcox=lm(copy_number_boxcox~ Section.f + Replicate.f,d1_boxcox)
 
 # ANOVA
 anova(mod_boxcox)
@@ -145,7 +145,7 @@ leveneTest(copy_number_boxcox ~ Section.f, data = d31_boxcox)
 
 # Model
 
-mod_boxcox=lm(copy_number_boxcox~ Condition.f + Replicate.f,d31_boxcox)
+mod_boxcox=lm(copy_number_boxcox~ Section.f + Replicate.f,d31_boxcox)
 
 # ANOVA
 anova(mod_boxcox)
@@ -187,5 +187,6 @@ p
 
 ggsave("Fig4C_Stammera_abundance_AG_sections_1_31_days.pdf", p)
 ggsave("Fig4C_Stammera_abundance_AG_sections_1_31_days.svg", p)
+
 
 
