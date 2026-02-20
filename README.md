@@ -656,7 +656,7 @@ qsub raxml.sh
 
 ## 5.3 Co-phylogenetic comparison
 
-The resulting trees were visualized side-by-side in Dendroscope3 as a tanglegram using the Neighbor Net Tanglegram algorithm. Cophylogenetic congruence between yellow genes and _Stammera_ was assessed using eMPRess GUI. 
+The resulting trees were visualized side-by-side in Dendroscope3 as a tanglegram using the Neighbor Net Tanglegram algorithm. Cophylogenetic congruence between _yellow_ genes and _Stammera_ was assessed using eMPRess GUI. 
 
 
 # 6 Positive selection analysis of Yellow proteins
@@ -672,7 +672,7 @@ cd positive_selection
 
 ## 6.1 Sequence retrieval
 
-Protein and corresponding coding sequences (CDS) were obtained from Trinity assemblies using TransDecoder (see Section 3.5).
+Protein and corresponding coding sequences (CDS) were obtained from Trinity assemblies using TransDecoder (see Section 4.5).
 
 Outputs used:
 
