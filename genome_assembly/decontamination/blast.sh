@@ -1,6 +1,6 @@
 #!/bin/bash
 #$ -S /bin/bash
-#$ -N blob
+#$ -N blast
 #$ -cwd
 
 
