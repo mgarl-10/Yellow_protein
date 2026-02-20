@@ -1,6 +1,6 @@
 #!/bin/bash
 #$ -S /bin/bash
-#$ -N gmark_Crubi
+#$ -N gmark_Calt
 #$ -cwd
 
 
